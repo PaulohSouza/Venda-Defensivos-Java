@@ -29,7 +29,7 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
 
     DefaultTableModel carrinho;
 
-    private static DefaultListModel estoques_cadastrados;
+    private static DefaultListModel vendas_cadastrados;
     private static Vector<Visão<Integer>> herbicidas_cadastrados = new Vector<Visão<Integer>>();
     private static Vector<Visão<String>> clientes_cadastrados = new Vector<Visão<String>>();
 
@@ -97,8 +97,8 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
 
         int quantidade_solicitada = Integer.parseInt(quantidadeTextField.getText());
 
-        if (quantidade_solicitada > herbicida.getQuantidade_estoque()) {
-            JOptionPane.showMessageDialog(this, "A quantidade informada encontra-se indisponivel no momento, total atual: " + herbicida.getQuantidade_estoque() + " Produtos");
+        if (quantidade_solicitada > herbicida.getQuantidade_venda()) {
+            JOptionPane.showMessageDialog(this, "A quantidade informada encontra-se indisponivel no momento, total atual: " + herbicida.getQuantidade_venda() + " Produtos");
         } else {
 
             if (mensagem_erro == null) {
@@ -194,8 +194,9 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
         nivel_logadoLabel = new javax.swing.JLabel();
         dados_vendasPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        estoques_cadastradosList = new javax.swing.JList();
+        vendas_cadastradasList = new javax.swing.JList();
         nova_vendaButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela de Usuários - AgroHerbicides");
@@ -518,9 +519,9 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
         dados_vendasPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vendas Realizadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         dados_vendasPanel.setToolTipText("");
 
-        estoques_cadastradosList.setModel(new DefaultListModel());
-        estoques_cadastradosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(estoques_cadastradosList);
+        vendas_cadastradasList.setModel(new DefaultListModel());
+        vendas_cadastradasList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(vendas_cadastradasList);
 
         javax.swing.GroupLayout dados_vendasPanelLayout = new javax.swing.GroupLayout(dados_vendasPanel);
         dados_vendasPanel.setLayout(dados_vendasPanelLayout);
@@ -542,6 +543,13 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -557,8 +565,7 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
                     .addComponent(dados_vendasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(nova_vendaButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(nova_vendaButton)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -570,19 +577,21 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
                                 .addComponent(valor_totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btIncluirProduto1))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(salvarButton)
-                                .addGap(37, 37, 37)
-                                .addComponent(cancelarButton))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cargo_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nivel_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(salvarButton)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(cancelarButton))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cargo_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nivel_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(49, 49, 49))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -602,10 +611,15 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dados_clientePanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valor_totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(valor_totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cancelarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -666,7 +680,30 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_salvarButtonActionPerformed
 
     private void consultarButtonconsultarClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonconsultarClienteButtonActionPerformed
-        // consultarVenda(evt);
+       Visão<Integer> visão;
+        Venda venda = null;
+        String mensagem_erro = null;
+        if (vendas_cadastradasList.getSelectedValue() != null) {
+            visão = (Visão<Integer>) vendas_cadastradasList.getSelectedValue();
+            venda = Venda.consultarEstoque(visão.getChave());
+            if (venda == null) {
+                mensagem_erro = "Estoque não encontrado no banco de dados";
+              ve
+            }
+        } else {
+            mensagem_erro = "Nenhum Estoque selecionado";
+        }
+        
+        if (mensagem_erro == null) {
+            Visão<String> visão1 = getFornecedoresCadastradosVisão(venda.getFornecedor().getCnpj());
+            visão = getProdutosCadastradosVisão(venda.getProduto().getSequencial());
+            identificador_sequencialTextField.setText(venda.getSequencial() + "");
+            fornecedores_cadastradosComboBox.setSelectedItem(visão1);
+            produtos_cadastradosComboBox.setSelectedItem(visão);
+        } else {
+            JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }                 ;
     }//GEN-LAST:event_consultarButtonconsultarClienteButtonActionPerformed
 
     private void alterarButton1alterarClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarButton1alterarClienteButtonActionPerformed
@@ -702,6 +739,10 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
           LimparTelarVenda();
     }//GEN-LAST:event_nova_vendaButtonconsultarClienteButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarButton1;
     private javax.swing.JButton btIncluirProduto1;
@@ -717,8 +758,8 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
     private javax.swing.JPanel dados_vendasPanel;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JFormattedTextField data_vendaFormattedTextField;
-    private javax.swing.JList estoques_cadastradosList;
     private javax.swing.JComboBox herbicidas_cadastradosComboBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -737,6 +778,7 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
     private javax.swing.JButton salvarButton;
     public javax.swing.JLabel usuario_logadoLabel;
     private javax.swing.JFormattedTextField valor_totalTextField;
+    private javax.swing.JList vendas_cadastradasList;
     // End of variables declaration//GEN-END:variables
 
 }

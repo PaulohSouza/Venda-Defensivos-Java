@@ -11,6 +11,7 @@ import entidade.Herbicida.Formulacao;
 import entidade.ItemVenda;
 import entidade.Venda;
 import entidade.Visão;
+import interfaces.JanelaCadastroVenda;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,7 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
     
      private void inserirVenda(java.awt.event.ActionEvent evt) {
         Venda venda = obterDadosVenda();
+       
         String mensagem_erro = null;
         if (venda != null) {
             System.out.println("Obteve os dados");
@@ -52,7 +54,7 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
              mensagem_erro = "Algum atributo do cliente não foi informado";
             
         } if(mensagem_erro == null){
-           
+  
             }else{
             mensagem_erro = "Algum atributo não foi informado";
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
