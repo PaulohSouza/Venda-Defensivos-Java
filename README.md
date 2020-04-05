@@ -1,4 +1,5 @@
 # Venda-Defensivos-Java
+Versao 1.34
 
 Sistema Desktop Venda de Defensivos - Java 8 - Netbeans.
 Projeto de disciplina.
