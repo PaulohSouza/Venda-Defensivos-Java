@@ -737,9 +737,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Masculino"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="masculinoRadioButtonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="femininoRadioButton">
           <Properties>
@@ -751,9 +748,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Feminino"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="femininoRadioButtonActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

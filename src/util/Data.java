@@ -10,7 +10,7 @@ public class Data implements Serializable {
     
 public static Data toData(String data_string) {
     if (!data_string.matches("\\d{4}-\\d{2}-\\d{2}")) {
-        System.out.println("Erro na conversão para data do string: " + data_string);
+       // System.out.println("Erro na conversão para data do string: " + data_string);
         return null;
     }
 String[] partesString = data_string.split("-");

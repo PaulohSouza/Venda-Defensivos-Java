@@ -44,7 +44,6 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
         Venda venda = obterDadosVenda();
         String mensagem_erro = null;
         if (venda != null) {
-            System.out.println("Obteve os dados");
             controlador.inserirVenda(venda);
         } else {
             mensagem_erro = "Algum atributo do cliente não foi informado";
@@ -92,13 +91,11 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
 
         Venda.PagamentoTipo pagamentotipo = null;
 
-        if (pagamento_tipoCombobox.getSelectedIndex() >= 1) {
+        if (pagamento_tipoCombobox.getSelectedIndex() > 0) {
             pagamentotipo = Venda.PagamentoTipo.values()[pagamento_tipoCombobox.getSelectedIndex()];
         } else {
             return mensagem_erro = "Forma de Pagamento não selecionada!";
-
         }
-
         String aux_valorFinal = valor_finalTextField.getText();
         float valor_final = Float.parseFloat(aux_valorFinal);
         if (valor_pago < valor_final) {
@@ -111,8 +108,7 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
     private void EfetuarPagamento(java.awt.event.ActionEvent evt) {
 
         Venda.PagamentoTipo pagamentotipo = null;
-       
-        
+
         Venda venda = new Venda(0, "", data_venda, pagamentotipo, valor_daVenda, valor_daVenda, valor_daVenda, true);
         String mensagem_erro = VerificarValoresPagamento();
         int id;
@@ -161,7 +157,6 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
 
     private Venda obterDadosVenda() {
 
-        System.out.println(cliente_id);
         String cliente = cliente_id;
         if (cliente_id == null) {
             return null;
@@ -318,7 +313,7 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
         valor_brutoTextField.setEnabled(false);
 
         pagamento_tipoCombobox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        pagamento_tipoCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Dinheiro", "Cartao_Credito", "Cartao_Debito" }));
+        pagamento_tipoCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartao_Credito", "Cartao_Debito" }));
 
         forma_pagamentoLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         forma_pagamentoLabel.setText("Forma Pagamento:");
@@ -489,7 +484,7 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

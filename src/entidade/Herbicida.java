@@ -44,103 +44,100 @@ public class Herbicida {
     }
     return item;
  }
-    */
-    
-    
-    public static Herbicida buscarHerbicida(int id){
-        
-    String sql = "SELECT nome, codigo_barras, empresa, valor_unitario, quantidade_estoque, formulacao, precisa_registro from herbicida where id = ?";
-    ResultSet lista_resultados = null;
-    Herbicida item = null;
-    try {
-        PreparedStatement comando = BD.conexão.prepareStatement(sql);
-        comando.setString(1, id + "");
-      //  comando.setInt(1, id);
-        lista_resultados = comando.executeQuery();
-        while (lista_resultados.next()) {
-            item = new Herbicida (id,
-            lista_resultados.getString("nome"),
-            lista_resultados.getString("codigo_barras"),
-            lista_resultados.getString("empresa"),
-            lista_resultados.getFloat("valor_unitario"),
-            lista_resultados.getInt("quantidade_estoque"),
-            Formulacao.values()[lista_resultados.getInt("formulacao")],
-            lista_resultados.getBoolean("precisa_registro"));
-        }
-       
-        lista_resultados.close();
-        comando.close();
-    } catch (SQLException exceção_sql) {
-        exceção_sql.printStackTrace ();
-        item = null;
-    }
-    return item;
- }
-  
- //Método para dar baixar no Estoque Herbicida;
- public void baixarEstoque(int id, int qtd_novo){
-     try {
-         String sql = "Update Herbicida SET quantidade_estoque = ? where id = ?";
-         PreparedStatement comando = BD.conexão.prepareStatement(sql);
-         
-         comando.setInt(1, qtd_novo);
-         comando.setInt(2, id);
-         
-         comando.execute();
-         comando.close();
-        System.out.println("Baixa no Estoque do produto " + id +" igual a " + qtd_novo);
-     
-     } catch (Exception erro) {
-         JOptionPane.showMessageDialog(null, "Erro" + erro);
-     }
-    
-}
- 
- public int RetornaEstoqueAtual(int id){
-   
-     try{
-         int qtd =0;
-        
-         String sql = "Select quantidade_estoque from herbicida where id = ? ";
-         PreparedStatement comando = BD.conexão.prepareStatement(sql);
-         comando.setInt(1, id);
-         
-         ResultSet lista_resultados =  comando.executeQuery();
-        
-         if(lista_resultados.next()){//Instanciar Herbicida;
-            qtd= (lista_resultados.getInt("quantidade_estoque")); 
-            
-            System.out.println("Estoque retornado: " + qtd);
+     */
+    public static Herbicida buscarHerbicida(int id) {
+
+        String sql = "SELECT nome, codigo_barras, empresa, valor_unitario, quantidade_estoque, formulacao, precisa_registro from herbicida where id = ?";
+        ResultSet lista_resultados = null;
+        Herbicida item = null;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, id + "");
+            //  comando.setInt(1, id);
+            lista_resultados = comando.executeQuery();
+            while (lista_resultados.next()) {
+                item = new Herbicida(id,
+                        lista_resultados.getString("nome"),
+                        lista_resultados.getString("codigo_barras"),
+                        lista_resultados.getString("empresa"),
+                        lista_resultados.getFloat("valor_unitario"),
+                        lista_resultados.getInt("quantidade_estoque"),
+                        Formulacao.values()[lista_resultados.getInt("formulacao")],
+                        lista_resultados.getBoolean("precisa_registro"));
             }
-     return qtd;   
-     } catch (Exception erro) {
-         JOptionPane.showMessageDialog(null, "Erro" + erro);
-         return 0;
-     }
- 
- }
- 
-    public static String inserirHerbicida(Herbicida herbicida){
-        
-       String sql = "INSERT INTO Herbicida(nome, codigo_barras, empresa, valor_unitario, quantidade_estoque, formulacao, precisa_registro)"
-         + " VALUES (?,?,?,?,?,?,?)";
-         String mensagem_erro = null;
-         int precisa_inscricao_estadual = herbicida.getPrecisa_registro() ? 1 : 0;
-         try {
-             PreparedStatement comando = BD.conexão.prepareStatement(sql);
-             comando.setString(1, herbicida.getNome());
-             comando.setString(2, herbicida.getCodig_barras());
-             comando.setString(3, herbicida.getEmpresa());
-             comando.setString(4, herbicida.getValor_unitario() + "");
-             comando.setInt(5, herbicida.getQuantidade_estoque());;
-             comando.setString(6, herbicida.getFormulacao().ordinal() + "");
-             comando.setInt(7, precisa_inscricao_estadual);
-             comando.executeUpdate();
-             comando.close();
-         } catch (SQLException exceção_sql) {
-             exceção_sql.printStackTrace ();
-             mensagem_erro =  "Erro na Inserção do Herbicida no BD";
-         }
+
+            lista_resultados.close();
+            comando.close();
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+            item = null;
+        }
+        return item;
+    }
+
+    //Método para dar baixar no Estoque Herbicida;
+    public void baixarEstoque(int id, int qtd_novo) {
+        try {
+            String sql = "Update Herbicida SET quantidade_estoque = ? where id = ?";
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+
+            comando.setInt(1, qtd_novo);
+            comando.setInt(2, id);
+
+            comando.execute();
+            comando.close();
+           // System.out.println("Baixa no Estoque do produto " + id + " igual a " + qtd_novo);
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro" + erro);
+        }
+
+    }
+
+    public int RetornaEstoqueAtual(int id) {
+
+        try {
+            int qtd = 0;
+
+            String sql = "Select quantidade_estoque from herbicida where id = ? ";
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setInt(1, id);
+
+            ResultSet lista_resultados = comando.executeQuery();
+
+            if (lista_resultados.next()) {//Instanciar Herbicida;
+                qtd = (lista_resultados.getInt("quantidade_estoque"));
+
+            }
+            return qtd;
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro" + erro);
+            return 0;
+        }
+
+    }
+
+    public static String inserirHerbicida(Herbicida herbicida) {
+
+        String sql = "INSERT INTO Herbicida(nome, codigo_barras, empresa, valor_unitario, quantidade_estoque, formulacao, precisa_registro)"
+                + " VALUES (?,?,?,?,?,?,?)";
+        String mensagem_erro = null;
+        int precisa_inscricao_estadual = herbicida.getPrecisa_registro() ? 1 : 0;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, herbicida.getNome());
+            comando.setString(2, herbicida.getCodig_barras());
+            comando.setString(3, herbicida.getEmpresa());
+            comando.setString(4, herbicida.getValor_unitario() + "");
+            comando.setInt(5, herbicida.getQuantidade_estoque());;
+            comando.setString(6, herbicida.getFormulacao().ordinal() + "");
+            comando.setInt(7, precisa_inscricao_estadual);
+            comando.executeUpdate();
+            comando.close();
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+            mensagem_erro = "Erro na Inserção do Herbicida no BD";
+        }
         //pegar o ID do Banco
         sql = "SELECT MAX(id) AS id FROM Herbicida";
         ResultSet lista_resultados;
@@ -157,158 +154,174 @@ public class Herbicida {
             exceção_sql.printStackTrace();
             mensagem_erro = "Erro ao buscar codigo do Herbicida no banco de dados";
         }
-        if (id_produto> -1) {
+        if (id_produto > -1) {
             herbicida.setId(id_produto);
         }
         return mensagem_erro;
     }
-    
-    public static String alterarHerbicida(Herbicida herbicida){
-        
+
+    public static String alterarHerbicida(Herbicida herbicida) {
+
         String sql = "UPDATE Herbicida SET nome = ?, codigo_barras =?, empresa = ?, valor_unitario = ?, quantidade_estoque = ?, formulacao = ?, "
                 + " precisa_registro = ? WHERE id = ?";
-        int precisa_registro =  herbicida.getPrecisa_registro()?1:0;
-        try{
+        int precisa_registro = herbicida.getPrecisa_registro() ? 1 : 0;
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, herbicida.getNome());
             comando.setString(2, herbicida.getCodig_barras());
             comando.setString(3, herbicida.getEmpresa());
             comando.setFloat(4, herbicida.getValor_unitario());
             comando.setInt(5, herbicida.getQuantidade_estoque());
-            comando.setString(6, herbicida.getFormulacao().ordinal() + "");
+            comando.setInt(6, herbicida.getFormulacao().ordinal());
             comando.setInt(7, precisa_registro);
             comando.setInt(8, herbicida.getId());
             comando.executeUpdate();
             comando.close();
-        }catch(SQLException exceção_sql){
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
             return "Erro ao alterar herbicida no BD.";
         }
-     
+
         return null;
     }
-    
-    public static String removerHerbicida(int id){
-        
-       
+
+    public static String removerHerbicida(int id) {
+        String sql3 = "SELECT herbicida_id FROM tab_itemvenda WHERE herbicida_id = ?";
+        ResultSet lista_resultado;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql3);
+            comando.setInt(1, id);
+            lista_resultado = comando.executeQuery();
+            while (lista_resultado.next()) {
+                if (lista_resultado.getInt("herbicida_id") == id) {
+                    return "Não é possível remover, pois existe uma Venda Cadastrada com este Produto";
+                }
+            }
+            lista_resultado.close();
+            comando.close();
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+            return "Erro ao tentar conferir se existe vendas cadastradadas por esse CPF";
+        }
+
         String sql = "DELETE FROM Herbicida WHERE id = ?";
-        try{
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setInt(1, id);
             comando.executeUpdate();
             comando.close();
-        }catch(SQLException exceção_sql){
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
             return "Erro ao remover Herbicida do BD.";
         }
-     
+
         return null;
     }
-    
-    public static Vector<Visão<Integer>> getVisões(){
+
+    public static Vector<Visão<Integer>> getVisões() {
         String sql = "SELECT id, nome, valor_unitario FROM herbicida";
         ResultSet lista_resultados = null;
         Vector<Visão<Integer>> visões = new Vector<Visão<Integer>>();
-        
-        try{
+
+        try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
+            while (lista_resultados.next()) {
                 visões.addElement(new Visão(
                         lista_resultados.getInt("id"),
                         lista_resultados.getString("id") + " - "
-                        +lista_resultados.getString("nome") + " - Valor R$: "
-                        +lista_resultados.getString("valor_unitario")));
+                        + lista_resultados.getString("nome") + " - Valor R$: "
+                        + lista_resultados.getString("valor_unitario")));
             }
             lista_resultados.close();
             comando.close();
-            
-        }catch(SQLException exceção_sql){
+
+        } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
         }
         return visões;
     }
-       
-    
-   public static List<Herbicida> BuscarHerbicidaPorNome(String nome){
-       
-        List<Herbicida> lista = new ArrayList<>();  
+
+    public static List<Herbicida> BuscarHerbicidaPorNome(String nome) {
+
+        List<Herbicida> lista = new ArrayList<>();
         String sql = "Select * from herbicida where nome like ? ";
-        
+
         Herbicida herbicida = null;
-        ResultSet lista_resultados = null;  
-          try{
-           PreparedStatement comando = BD.conexão.prepareStatement(sql);
-           comando.setString(1, nome);
+        ResultSet lista_resultados = null;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, nome);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
-               herbicida = new Herbicida(
-                    lista_resultados.getInt("id"),
-                    lista_resultados.getString("nome"),
-                    lista_resultados.getString("codigo_barras"),
-                    lista_resultados.getString("empresa"),
-                    lista_resultados.getFloat("valor_unitario"),
-                    lista_resultados.getInt("quantidade_estoque"), 
-                    Formulacao.values()[lista_resultados.getInt("formulacao")],
-                    lista_resultados.getBoolean("precisa_registro"));
-               lista.add(herbicida);
-            }          
-          lista_resultados.close();
-          comando.close();
-        return lista;
-             
-        }catch(SQLException erro){
+            while (lista_resultados.next()) {
+                herbicida = new Herbicida(
+                        lista_resultados.getInt("id"),
+                        lista_resultados.getString("nome"),
+                        lista_resultados.getString("codigo_barras"),
+                        lista_resultados.getString("empresa"),
+                        lista_resultados.getFloat("valor_unitario"),
+                        lista_resultados.getInt("quantidade_estoque"),
+                        Formulacao.values()[lista_resultados.getInt("formulacao")],
+                        lista_resultados.getBoolean("precisa_registro"));
+                lista.add(herbicida);
+            }
+            lista_resultados.close();
+            comando.close();
+            return lista;
+
+        } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
             return null;
         }
-      
+
     }
-    
-   public static List<Herbicida> listarHerbicida(){
-       
-        List<Herbicida> lista = new ArrayList<>();  
+
+    public static List<Herbicida> listarHerbicida() {
+
+        List<Herbicida> lista = new ArrayList<>();
         String sql = "SELECT * from herbicida";
         Herbicida herbicida = null;
-        ResultSet lista_resultados = null;  
-          try{
-           PreparedStatement comando = BD.conexão.prepareStatement(sql);
+        ResultSet lista_resultados = null;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
             lista_resultados = comando.executeQuery();
-            while(lista_resultados.next()){
-               herbicida = new Herbicida(
-                    lista_resultados.getInt("id"),
-                    lista_resultados.getString("nome"),
-                    lista_resultados.getString("codigo_barras"),
-                    lista_resultados.getString("empresa"),
-                    lista_resultados.getFloat("valor_unitario"),
-                    lista_resultados.getInt("quantidade_estoque"),
-                    Formulacao.values()[lista_resultados.getInt("formulacao")],
-                    lista_resultados.getBoolean("precisa_registro"));
-               lista.add(herbicida);
-            }          
-        return lista;
-             
-        }catch(SQLException erro){
+            while (lista_resultados.next()) {
+                herbicida = new Herbicida(
+                        lista_resultados.getInt("id"),
+                        lista_resultados.getString("nome"),
+                        lista_resultados.getString("codigo_barras"),
+                        lista_resultados.getString("empresa"),
+                        lista_resultados.getFloat("valor_unitario"),
+                        lista_resultados.getInt("quantidade_estoque"),
+                        Formulacao.values()[lista_resultados.getInt("formulacao")],
+                        lista_resultados.getBoolean("precisa_registro"));
+                lista.add(herbicida);
+            }
+            return lista;
+
+        } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro" + erro);
             return null;
         }
-      
+
     }
-   
-   public enum Formulacao{
-        Po, Granulado, Liquido;
+
+    public enum Formulacao {
+        Po, Liquido, Granulado;
     };
-    
+
     public static final Formulacao[] formulacoes = Formulacao.values();
-   
+
     private Formulacao formulacao;
     private int id, quantidade_estoque;
     private String nome, codig_barras, empresa;
     private float valor_unitario;
     private boolean precisa_registro;
+
     ;
   
     //Construtor
-    public Herbicida(int id, String nome, String codigo_barras, String empresa, float valor_unitario, int quantidade_estoque,Formulacao formulacao, boolean precisa_registro){
+    public Herbicida(int id, String nome, String codigo_barras, String empresa, float valor_unitario, int quantidade_estoque, Formulacao formulacao, boolean precisa_registro) {
         this.id = id;
         this.nome = nome;
         this.codig_barras = codigo_barras;
@@ -387,10 +400,9 @@ public class Herbicida {
     public float getValor_unitario() {
         return valor_unitario;
     }
-    
-     public Visão<Integer> getVisão(){
-        return new Visão<Integer>(id, id+ " - " + nome);
-    }
 
+    public Visão<Integer> getVisão() {
+        return new Visão<Integer>(id, id + " - " + nome);
+    }
 
 }

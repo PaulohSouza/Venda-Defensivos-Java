@@ -1,4 +1,3 @@
-
 package controle;
 
 import entidade.ItemVenda;
@@ -7,11 +6,11 @@ import entidade.Venda;
 
 public class ControladorCadastroVenda {
 
-   public ControladorCadastroVenda(){
-       new JanelaCadastroVenda(this).setVisible(true);
-   }
- 
-   public String inserirVenda(Venda venda) {
+    public ControladorCadastroVenda() {
+        new JanelaCadastroVenda(this).setVisible(true);
+    }
+
+    public String inserirVenda(Venda venda) {
 
         Venda venda1 = Venda.buscarVenda(venda.getSequencial());
         if (venda1 == null) {
@@ -19,20 +18,16 @@ public class ControladorCadastroVenda {
         } else {
             return "Venda já cadastrado";
         }
-     
-   }
-   
-public String inserirItemVenda(Venda venda,ItemVenda itemvenda) {
-     System.out.println("Tentaou buscar uma venda");  
-     Venda venda1 = Venda.buscarVenda(venda.getSequencial());
+    }
+
+    public String inserirItemVenda(Venda venda, ItemVenda itemvenda) {
+        Venda venda1 = Venda.buscarVenda(venda.getSequencial());
         ItemVenda item1 = null;
         if (venda1 == null) {
-            System.out.println("Recebeu venda");
             return item1.inserirItem(itemvenda);
 
         } else {
             return "Erro Repetição de venda";
         }
-  }   
+    }
 }
-

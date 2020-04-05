@@ -4,10 +4,10 @@ import javax.swing.JOptionPane;
 import util.WebServiceCep;
 
 public class Endereço {
-    
+
     private String rua, número, complemento, bairro, cidade, Cep, estado;
 
-    public Endereço(String rua, String número, String complemento, String bairro, String cidade, String Cep, String estado){
+    public Endereço(String rua, String número, String complemento, String bairro, String cidade, String Cep, String estado) {
         this.rua = rua;
         this.número = número;
         this.complemento = complemento;
@@ -17,33 +17,33 @@ public class Endereço {
         this.estado = estado;
     }
 
-     public  static Endereço buscaCep(String cep) {
-       
-         try {
-     
-        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
-  
-        Endereço obj = new Endereço(" ", " ", " ", " ", " ", " ", " ");
+    public static Endereço buscaCep(String cep) {
 
-        if (webServiceCep.wasSuccessful()) {
-            obj.setRua(webServiceCep.getLogradouroFull());
-            obj.setCidade(webServiceCep.getCidade());
-            obj.setBairro(webServiceCep.getBairro());
-            obj.setEstado(webServiceCep.getUf());
-            return obj;
-        } else {
-            JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode() + " CEP NÃO ENCONTRADO");
-          //  JOptionPane.showMessageDialog(null, "Retorno Servidor de Endereços: " + webServiceCep.getResultText());
-            
-          return null;
+        try {
+
+            WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
+
+            Endereço obj = new Endereço(" ", " ", " ", " ", " ", " ", " ");
+
+            if (webServiceCep.wasSuccessful()) {
+                obj.setRua(webServiceCep.getLogradouroFull());
+                obj.setCidade(webServiceCep.getCidade());
+                obj.setBairro(webServiceCep.getBairro());
+                obj.setEstado(webServiceCep.getUf());
+                return obj;
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode() + " CEP NÃO ENCONTRADO");
+                //  JOptionPane.showMessageDialog(null, "Retorno Servidor de Endereços: " + webServiceCep.getResultText());
+
+                return null;
+            }
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro numero: " + erro);
         }
-        
-          } catch (Exception erro) {
-                    JOptionPane.showMessageDialog(null, "Erro numero: " + erro);
-          }
-      return null;
+        return null;
     }
-    
+
     public String getLogradouro() {
         return rua;
     }
@@ -107,16 +107,16 @@ public class Endereço {
     public void setNúmero(String número) {
         this.número = número;
     }
-    
-    public String toString(){
+
+    public String toString() {
         String info = rua + " - " + número;
-        
-        if(complemento != null){
+
+        if (complemento != null) {
             info += " - " + complemento;
         }
-        
+
         info += " -Bairro: " + bairro + " - " + cidade + "\nCEP: " + Cep;
-        
+
         return info;
     }
 }

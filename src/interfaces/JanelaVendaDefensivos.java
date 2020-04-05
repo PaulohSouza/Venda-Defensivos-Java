@@ -1,4 +1,3 @@
-
 package interfaces;
 
 import javax.swing.JOptionPane;
@@ -19,9 +18,9 @@ import util.Data;
 public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
     public JanelaVendaDefensivos(String nome, String cargo, String nivel_acesso) {
-       //To change body of generated methods, choose Tools | Templates.
-      // cadastrar_FuncionariosMenuItem.enable(false); 
-       initComponents();
+        //To change body of generated methods, choose Tools | Templates.
+        // cadastrar_FuncionariosMenuItem.enable(false); 
+        initComponents();
         BD.criaConexãoComando();
         data_horaLabel.setVisible(false);
         data_horaTimer.start();
@@ -29,12 +28,12 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         cargo_logadoLabel.setText(cargo);
         nivel_logadoLabel.setText(nivel_acesso);
         nivel_logadoLabel.setVisible(false);
-        
+
         //Se não for Administrador não vai aparecer
-        if (!nivel_acesso.equals("Administrador")){
+        if (!nivel_acesso.equals("Administrador")) {
             //cadastrar_FuncionariosMenuItem.setEnabled(false);
         }
-        try {   
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JanelaVendaDefensivos.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,20 +44,19 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(JanelaVendaDefensivos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
 
-    public void dadosLogados(){
+    public void dadosLogados() {
         String usuario, cargo, nivel;
-   
+
     }
-    //Aqui publico só para poder puxar dados para todas as telas
- 
-          
+
     private void informaServiçoIndisponível() {
         JOptionPane.showMessageDialog(this, "Serviço Indisponível",
                 "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -137,8 +135,13 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         consultaButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         consultaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_ iconfinder_folder-saved-search_118905.png"))); // NOI18N
-        consultaButton.setText("Consultar");
+        consultaButton.setText("Filtrar Vendas");
         consultaButton.setFocusable(false);
+        consultaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaButtonActionPerformed(evt);
+            }
+        });
 
         sairButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         sairButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3sair.png"))); // NOI18N
@@ -185,7 +188,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
                 .addComponent(consultaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sairButton)
-                .addGap(0, 106, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clientesButton, consultaButton, herbicidabutton, sairButton, vendasButton});
@@ -231,9 +234,9 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(usuario_logadoLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cargo_logadoLabel)
+                .addComponent(cargo_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(data_horaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -323,7 +326,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         consultasMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/magnifier.png"))); // NOI18N
         consultasMenu.setText("Consultas");
-        consultasMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
+        consultasMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         filtro_vendasMenuItem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         filtro_vendasMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/application.png"))); // NOI18N
@@ -339,14 +342,14 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         RelatoriosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/map.png"))); // NOI18N
         RelatoriosMenu.setText("Relatórios");
-        RelatoriosMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
+        RelatoriosMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         BarraMenuBar.add(RelatoriosMenu);
 
         gerenciamentoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_relatoriosPNG.png"))); // NOI18N
         gerenciamentoMenu.setText("Área Gerencial");
         gerenciamentoMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jMenuItem1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/application_edit.png"))); // NOI18N
         jMenuItem1.setText("Gerenciar Vendas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -360,9 +363,10 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         designMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cog.png"))); // NOI18N
         designMenu.setText("Utilitários");
-        designMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
+        designMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         mudar_telaMenu.setText("Alterar Design");
+        mudar_telaMenu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         design_metalMenuItem.setText("Metal");
         design_metalMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -394,7 +398,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         AjudaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/information.png"))); // NOI18N
         AjudaMenu.setText("Ajuda");
-        AjudaMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
+        AjudaMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         suporteonlineMenuItem.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         suporteonlineMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/status_online.png"))); // NOI18N
@@ -453,21 +457,21 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     }//GEN-LAST:event_CadastrarCliente
 
     private void cadastrar_defensivoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_defensivoMenuItemActionPerformed
-      
+
         new ControladorCadastroHerbicida();
-       
+
     }//GEN-LAST:event_cadastrar_defensivoMenuItemActionPerformed
 
     private void terminarSistema(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_terminarSistema
-              System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_terminarSistema
 
     private void CadastrarEntregaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarEntregaMenuItemActionPerformed
-       new ControladorCadastroVenda();
+        new ControladorCadastroVenda();
     }//GEN-LAST:event_CadastrarEntregaMenuItemActionPerformed
 
     private void sobreMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sobreMenuItemActionPerformed
-        JOptionPane.showMessageDialog(null,"Sistema desenvolvido por Souza Softwares","Sobre o Sistema", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Sistema desenvolvido por Souza Softwares", "Sobre o Sistema", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_sobreMenuItemActionPerformed
 
     private void data_horaTimerOnTime(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_horaTimerOnTime
@@ -477,8 +481,8 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     }//GEN-LAST:event_data_horaTimerOnTime
 
     private void clientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesButtonActionPerformed
-       new ControladorCadastroCliente();
-      
+        new ControladorCadastroCliente();
+
     }//GEN-LAST:event_clientesButtonActionPerformed
 
     private void herbicidabuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_herbicidabuttonActionPerformed
@@ -486,44 +490,52 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     }//GEN-LAST:event_herbicidabuttonActionPerformed
 
     private void design_metalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_design_metalMenuItemActionPerformed
-        try{
-             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-             SwingUtilities.updateComponentTreeUI(this);
-            
-        }catch(Exception erro){
-               JOptionPane.showConfirmDialog(this, erro);
-            }
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(this);
+
+        } catch (Exception erro) {
+            JOptionPane.showConfirmDialog(this, erro);
+        }
     }//GEN-LAST:event_design_metalMenuItemActionPerformed
 
     private void design_windowsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_design_windowsMenuItemActionPerformed
-        try{
-             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-             SwingUtilities.updateComponentTreeUI(this);
-            
-        }catch(Exception erro){
-               JOptionPane.showConfirmDialog(this, erro);
-        }                                                  
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(this);
+
+        } catch (Exception erro) {
+            JOptionPane.showConfirmDialog(this, erro);
+        }
 
     }//GEN-LAST:event_design_windowsMenuItemActionPerformed
 
     private void design_motifMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_design_motifMenuItemActionPerformed
-       try{
-             UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-             SwingUtilities.updateComponentTreeUI(this);
-            
-        }catch(Exception erro){
-               JOptionPane.showConfirmDialog(this, erro);
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(this);
+
+        } catch (Exception erro) {
+            JOptionPane.showConfirmDialog(this, erro);
         }
     }//GEN-LAST:event_design_motifMenuItemActionPerformed
 
     private void cadastrar_FuncionariosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_FuncionariosMenuItemActionPerformed
-        new ControladorCadastroFuncionario();
+        String senha = "admin";
+        senha = JOptionPane.showInputDialog("Informe a senha de acesso a gerencia: ");
+        if (senha.equals("admin")) {
+            new ControladorCadastroFuncionario();
+        } else {
+            String mensagem_erro = "Senha não informada ou inválida - Você não tem acesso a esta tela";
+            JOptionPane.showMessageDialog(null, mensagem_erro, "Login Invalido!", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_cadastrar_FuncionariosMenuItemActionPerformed
 
     private void vendasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendasButtonActionPerformed
 
         new ControladorCadastroVenda();
-      
+
     }//GEN-LAST:event_vendasButtonActionPerformed
 
     private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
@@ -531,12 +543,17 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new ControladorGerenciamentoVenda(); 
+        new ControladorCadastroVenda();
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void filtro_vendasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtro_vendasMenuItemActionPerformed
-             new JanelaPesquisaEmFiltro().setVisible(true);; 
+        new JanelaPesquisaEmFiltro().setVisible(true);;
     }//GEN-LAST:event_filtro_vendasMenuItemActionPerformed
+
+    private void consultaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaButtonActionPerformed
+        new JanelaPesquisaEmFiltro().setVisible(true);;
+    }//GEN-LAST:event_consultaButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

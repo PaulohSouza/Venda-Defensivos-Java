@@ -17,7 +17,7 @@ public class Utilitarios {
             }
             if (component instanceof JFormattedTextField){
                 ((JFormattedTextField)component).setText(null);
-            }
+            } 
         }
     }
     

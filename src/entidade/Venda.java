@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import persistencia.BD;
+import util.Data;
 
 
 public class Venda{
@@ -61,22 +62,31 @@ public int ultima_venda;
         return id_venda;
  }
  
-    
   
-    public static String removerVenda(int Codigovenda) {
-        String sql = "DELETE FROM Venda WHERE Sequencial = ?";
+    public static String RemoverVenda(int Codigovenda) {
+       String sql1 = "DELETE FROM tab_itemvenda Where venda_id = ?";
         try {
-            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            PreparedStatement comando = BD.conexão.prepareStatement(sql1);
             comando.setInt(1, Codigovenda);
-            comando.executeUpdate();
+            comando.execute();
             comando.close();
-            return null;
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();     
+        } 
+        
+        String sq2 = "DELETE FROM tab_vendas WHERE id_venda = ? ";
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sq2);
+            comando.setInt(1, Codigovenda);
+            comando.execute();
+            comando.close();
         } catch (SQLException exceção_sql) {
             exceção_sql.printStackTrace();
             return "Erro na Remoção da Venda no BD";
-        }
+        } 
+       return null;
     }
-
+    
     public static Venda buscarVenda(int sequencial) {
         String sql = "SELECT cliente_id, data_venda,forma_pagamento, valor_produtos, valor_desconto, valor_total, precisa_nfe from tab_vendas where id_venda = ?";
         ResultSet lista_resultados = null;
@@ -108,22 +118,16 @@ public int ultima_venda;
         return venda;
     }
 
-   /*
+ 
     public static String alterarVenda(Venda venda) {
-        String sql = "UPDATE Venda SET Nome_cliente=?,Data_Venda=?, Nome_produto=?,TipoDeVenda=?,"
-                + " Quantidade=?"
-                + "Cliente_Cpf=?"
-                + " WHERE Sequencial = ?";
+        String sql = "UPDATE tab_vendas SET Cliente_id = ?, valor_desconto = ?, precisa_nfe = ? ";
+              
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
-            comando.setString(1, venda.getNome_cliente());
             comando.setString(1, venda.getCpf_cliente());
-            comando.setString(2, venda.getData_venda());
-            comando.setString(3, venda.getNome_cliente());
-            comando.setString(4, venda.getNome_produto());
-            comando.setString(5, venda.getQuantidade());
-            comando.setString(7, venda.getValor_total());
-      //      comando.setString(8, venda.getTipo_pagamento() + "");
+            comando.setFloat(2, venda.getValor_desconto());
+            comando.setBoolean(3, venda.getPrecisa_nfe());
+
             comando.executeUpdate();
             comando.close();
             return null;
@@ -133,7 +137,7 @@ public int ultima_venda;
         }
     }
     
-    */
+
     public static Vector<Visão<Integer>> getVisões() {
         String sql = "SELECT id_venda, cliente_id, data_venda, forma_pagamento, valor_produtos, valor_desconto, valor_total, precisa_nfe FROM tab_vendas ";
 
@@ -150,11 +154,14 @@ public int ultima_venda;
                 }else{
                     precisa_nfe1= "Sem Nota Fiscal";
                 } 
+                String aux_data = lista_resultados.getString(String.valueOf("data_venda"));
+                Data data = Data.toData(aux_data);
+                String codigo_venda = lista_resultados.getString(String.valueOf("id_venda"));
                 visões.addElement(new Visão<Integer>(
                         lista_resultados.getInt("id_venda"), 
-                        lista_resultados.getInt("id_venda")
-                        + " :        Cliente:  " + lista_resultados.getString("cliente_id") 
-                        + "             Data:  " + lista_resultados.getDate("data_venda")
+                        codigo_venda + ": " 
+                        + "         Cliente:  " + lista_resultados.getString("cliente_id") 
+                        + "             Data:  " + data
                         + "            Desconto:  " + lista_resultados.getFloat("valor_desconto")
                         + "            Valor_total:  " + lista_resultados.getFloat("valor_total")
                         + "              Precisa Nfe:  " + precisa_nfe1

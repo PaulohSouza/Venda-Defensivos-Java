@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Tela de Pesquisa em Filtro - Sistema AgroHerbicides
+//Paulo Henrique N. Souza - UFGD - LP2
 package interfaces;
 
 import entidade.ItemVenda;
@@ -13,13 +10,11 @@ import javax.swing.JOptionPane;
 import util.Data;
 import static util.Data.toData;
 
-
 public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
 
     private DefaultListModel filtro;
     private DefaultListModel geral;
-   
-   
+
     public JanelaPesquisaEmFiltro() {
         initComponents();
         inicializarFiltro();
@@ -28,12 +23,12 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);//<--comando para que a Janela apareça Centralizado na Tela  
     }
 
-     
     private void inicializarFiltro() {
-     //   geral = (DefaultListModel) geralList.getModel();
+        //   geral = (DefaultListModel) geralList.getModel();
         filtro = (DefaultListModel) filtroList.getModel();
-  
-      }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,7 +49,7 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         sexoLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         masculinoRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         sexo_clienteButtonGroup.add(masculinoRadioButton);
@@ -75,7 +70,8 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
         formulacaoComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         formulacaoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Po", "Liquido", "Granulado" }));
 
-        limparButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        limparButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        limparButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3iconfinder_system-log-out_118796.png"))); // NOI18N
         limparButton.setText("Limpar");
         limparButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +80,7 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
         });
 
         pesquisarButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pesquisarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3buscar.png"))); // NOI18N
         pesquisarButton.setText("Pesquisar");
         pesquisarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +145,7 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
                     .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(limparButton)
+                            .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(pesquisarButton))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,6 +163,9 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
                     .addComponent(filtroScrollPane))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {limparButton, pesquisarButton});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -184,24 +184,27 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nivelLabel)
                     .addComponent(formulacaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(limparButton)
-                    .addComponent(pesquisarButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pesquisarButton)
+                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(8, 8, 8)
                 .addComponent(filtroScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {limparButton, pesquisarButton});
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparButtonlimparAdoçãoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonlimparAdoçãoButtonActionPerformed
-        
- 
-  
+        pagamento_tipoCombobox.setSelectedIndex(0);
+        formulacaoComboBox.setSelectedIndex(0);
+        sexo_clienteButtonGroup.clearSelection();
+        filtro.removeAllElements();
     }//GEN-LAST:event_limparButtonlimparAdoçãoButtonActionPerformed
 
     private void pesquisarButtonpesquisarAdoçãoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarButtonpesquisarAdoçãoButtonActionPerformed
@@ -209,49 +212,50 @@ public class JanelaPesquisaEmFiltro extends javax.swing.JFrame {
 
         int formulacao1 = -1, pagamento1 = -1;
         String mensagem_erro = null;
-        if (formulacaoComboBox.getSelectedIndex()>=0){
-             formulacao1 = formulacaoComboBox.getSelectedIndex();
+        if (formulacaoComboBox.getSelectedIndex() >= 0) {
+            formulacao1 = formulacaoComboBox.getSelectedIndex();
         }
-        
-        if (pagamento_tipoCombobox.getSelectedIndex()>=0){
-             pagamento1 = pagamento_tipoCombobox.getSelectedIndex();
+
+        if (pagamento_tipoCombobox.getSelectedIndex() >= 0) {
+            pagamento1 = pagamento_tipoCombobox.getSelectedIndex();
         }
         String sexo_cliente = null;
+       
         if (masculinoRadioButton.isSelected()) {
             sexo_cliente = "m";
         } else if (femininoRadioButton.isSelected()) {
             sexo_cliente = "f";
-        }else{
+        } else {
             sexo_cliente = "x";
-       }
-     
-     visões = ItemVenda.getVisõesFiltradas(pagamento1, sexo_cliente, formulacao1);
-   
-       if (visões == null) {
-           filtro.removeAllElements();
-           JOptionPane.showMessageDialog(null, "Nenhum dado encontrado no filtro selecionado");
+        }
 
-       } else {
-              filtro.removeAllElements();
+        visões = ItemVenda.getVisõesFiltradas(pagamento1, sexo_cliente, formulacao1);
+
+        if (visões == null) {
+            filtro.removeAllElements();
+            JOptionPane.showMessageDialog(null, "Nenhum dado encontrado no filtro selecionado");
+
+        } else {
+            filtro.removeAllElements();
             for (Visão<Integer> visão : visões) {
                 filtro.addElement(visão);
-              //  filtro.addElement("\n");
-            }  
+                //  filtro.addElement("\n");
+            }
 
-         inicializarFiltro();
-        }  
-      if(visões.isEmpty()){
-          filtro.removeAllElements();
-          filtro.addElement("NENHUMA INFORMACAO DE VENDA ENCONTRADA COM O FILTRO INDICADO!");
-        //  JOptionPane.showMessageDialog(null, "Nenhum dado encontrado no filtro selecionado");
-      }
+            inicializarFiltro();
+        }
+        if (visões.isEmpty()) {
+            filtro.removeAllElements();
+            filtro.addElement("NENHUMA INFORMACAO DE VENDA ENCONTRADA COM O FILTRO INDICADO!");
+            //  JOptionPane.showMessageDialog(null, "Nenhum dado encontrado no filtro selecionado");
+        }
     }//GEN-LAST:event_pesquisarButtonpesquisarAdoçãoButtonActionPerformed
 
     private void filtroListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filtroListMouseClicked
-        int selectedIndex = filtroList.getSelectedIndex();
+        /*    int selectedIndex = filtroList.getSelectedIndex();
               if (selectedIndex != -1) {
               filtro.remove(selectedIndex);
-        }
+         */
     }//GEN-LAST:event_filtroListMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

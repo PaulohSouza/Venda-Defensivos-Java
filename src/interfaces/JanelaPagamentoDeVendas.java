@@ -36,9 +36,7 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
             venda.inserirVenda(venda);
             
             mensagem_erro = "ok";
-                    
-           // System.out.println(mensagem_erro);
-                    
+             
         } else {
             mensagem_erro = "Algum atributo não foi informado";
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
@@ -53,8 +51,7 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
         if (cliente_id == null) {
             return null; 
         }
-         System.out.println("Depois Cliente");
-        
+
        String aux_produtos = valor_brutoTextField.getText();
         if (aux_produtos.isEmpty()) {
               return null;
@@ -103,7 +100,7 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
         valor_descontoTextField = new javax.swing.JTextField();
         senhaLabel1 = new javax.swing.JLabel();
         cargolabel = new javax.swing.JLabel();
-        nomeLabel = new javax.swing.JLabel();
+        valor_produtosLabel = new javax.swing.JLabel();
         valor_brutoTextField = new javax.swing.JTextField();
         pagamento_tipoCombobox = new javax.swing.JComboBox<>();
         forma_pagamentoLabel = new javax.swing.JLabel();
@@ -116,7 +113,7 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         salvarButton1 = new javax.swing.JButton();
-        cliente_idLabel = new javax.swing.JLabel();
+        nfeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -156,8 +153,8 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
         cargolabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cargolabel.setText("Desconto:");
 
-        nomeLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nomeLabel.setText("Valor dos Produtos: ");
+        valor_produtosLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        valor_produtosLabel.setText("Valor dos Produtos: ");
 
         valor_brutoTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         valor_brutoTextField.setToolTipText("");
@@ -166,11 +163,12 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
         pagamento_tipoCombobox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pagamento_tipoCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Dinheiro", "Cartao_Credito", "Cartao_Debito" }));
 
-        forma_pagamentoLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        forma_pagamentoLabel.setText("Forma Pagamento:");
+        forma_pagamentoLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        forma_pagamentoLabel.setText("Pagamento:");
+        forma_pagamentoLabel.setToolTipText("");
 
         precisa_nfeCheckBox.setBackground(new java.awt.Color(255, 255, 255));
-        precisa_nfeCheckBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        precisa_nfeCheckBox.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         precisa_nfeCheckBox.setText("Precisa Nota Fiscal");
         precisa_nfeCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +240,8 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
             }
         });
 
-        cliente_idLabel.setText("jLabel2");
+        nfeLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nfeLabel.setText("NFE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,50 +249,52 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nomeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(valor_brutoTextField))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(precisa_nfeCheckBox)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(forma_pagamentoLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(cargolabel)
-                            .addGap(18, 18, 18)
-                            .addComponent(valor_descontoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cargolabel1)
-                                        .addComponent(senhaLabel2))
-                                    .addGap(22, 22, 22))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(senhaLabel1)
-                                    .addGap(18, 18, 18)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(valor_finalTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                .addComponent(valor_trocoTextField)
-                                .addComponent(valor_pagoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cargolabel1)
+                                    .addComponent(senhaLabel2))
+                                .addGap(22, 22, 22))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(senhaLabel1)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(valor_finalTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                            .addComponent(valor_trocoTextField)
+                            .addComponent(valor_pagoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(forma_pagamentoLabel)
+                                    .addComponent(cargolabel))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(nfeLabel)
+                                .addGap(27, 27, 27)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(valor_descontoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precisa_nfeCheckBox))))
+                .addGap(14, 42, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(salvarButton)
-                .addGap(28, 28, 28)
-                .addComponent(salvarButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cliente_idLabel)
-                .addGap(99, 99, 99))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(salvarButton)
+                        .addGap(28, 28, 28)
+                        .addComponent(salvarButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(valor_produtosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(valor_brutoTextField))))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {valor_descontoTextField, valor_finalTextField, valor_pagoTextField, valor_trocoTextField});
@@ -302,18 +303,18 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valor_brutoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(valor_produtosLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nfeLabel)
+                    .addComponent(precisa_nfeCheckBox))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeLabel)
-                    .addComponent(valor_brutoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(cliente_idLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(precisa_nfeCheckBox)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(forma_pagamentoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(forma_pagamentoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cargolabel)
@@ -472,12 +473,11 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cargolabel;
     private javax.swing.JLabel cargolabel1;
-    public javax.swing.JLabel cliente_idLabel;
     private javax.swing.JLabel forma_pagamentoLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel nomeLabel;
+    public javax.swing.JLabel nfeLabel;
     private javax.swing.JComboBox<String> pagamento_tipoCombobox;
     private javax.swing.JCheckBox precisa_nfeCheckBox;
     private javax.swing.JButton salvarButton;
@@ -489,6 +489,7 @@ public class JanelaPagamentoDeVendas extends javax.swing.JDialog {
     private javax.swing.JTextField valor_descontoTextField;
     private javax.swing.JTextField valor_finalTextField;
     private javax.swing.JTextField valor_pagoTextField;
+    private javax.swing.JLabel valor_produtosLabel;
     private javax.swing.JTextField valor_trocoTextField;
     // End of variables declaration//GEN-END:variables
 }

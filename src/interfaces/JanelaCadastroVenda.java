@@ -108,8 +108,13 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
             mensagem_erro = "Nenhum herbicida selecionado";
         }
 
+        if (quantidadeTextField.getText().isEmpty()){
+            return false;
+        }
+   
         int quantidade_solicitada = Integer.parseInt(quantidadeTextField.getText());
-
+        
+        
         if (quantidade_solicitada > herbicida.getQuantidade_estoque()) {
             JOptionPane.showMessageDialog(this, "A quantidade informada encontra-se indisponivel no momento, total atual: " + herbicida.getQuantidade_estoque() + " Produtos");
         } else {
@@ -149,6 +154,7 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
       valor_totalTextField.setText("0");
       clientes_cadastradosComboBox.setSelectedIndex(-1);
       herbicidas_cadastradosComboBox.setSelectedIndex(-1);
+      quantidadeTextField.setText("");
   } 
   
     
@@ -230,7 +236,7 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(288, 288, 288))
+                .addGap(249, 249, 249))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,7 +594,14 @@ public class JanelaCadastroVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btIncluirProduto3ActionPerformed
 
     private void btIncluirProduto4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirProduto4ActionPerformed
-         new ControladorGerenciamentoVenda(); 
+        String senha = "admin";
+        senha =  JOptionPane.showInputDialog("Informe a senha de acesso a gerencia: ");
+        if(senha.equals("admin")){
+            new ControladorGerenciamentoVenda();
+        }else{  
+            String mensagem_erro = "Senha não informada ou inválida - Você não tem acesso a esta tela";
+            JOptionPane.showMessageDialog(null, mensagem_erro, "Login Invalido!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btIncluirProduto4ActionPerformed
 
     private void btIncluirProduto6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncluirProduto6ActionPerformed

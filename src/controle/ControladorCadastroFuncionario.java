@@ -1,13 +1,11 @@
 package controle;
 
-
 import entidade.Funcionario;
 import entidade.Visão;
 import interfaces.JanelaCadastroFuncionario;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-
 
 public class ControladorCadastroFuncionario {
 
@@ -25,7 +23,7 @@ public class ControladorCadastroFuncionario {
     }
 
     public String alterarFuncionario(Funcionario funcionario) {
-        Funcionario funcionario1 = Funcionario.buscarFuncionario(funcionario.getLogin());  
+        Funcionario funcionario1 = Funcionario.buscarFuncionario(funcionario.getLogin());
         if (funcionario1 != null) {
             return Funcionario.alterarFuncionario(funcionario);
         } else {

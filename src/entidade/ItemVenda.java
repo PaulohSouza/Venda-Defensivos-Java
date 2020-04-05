@@ -73,12 +73,6 @@ public class ItemVenda {
         try {
 
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
-            System.out.println("Montou a Sql");
-//            System.out.println(venda.ultima_venda + "");
-            System.out.println(item_venda.getHerbicida().getId() + "");
-            System.out.println(item_venda.getQuantidade() + "");
-            System.out.println(item_venda.getValor_unitario() + "");
-
             comando.setInt(1, item_venda.getVenda().getSequencial());
             comando.setInt(2, item_venda.getHerbicida().getId());
             comando.setFloat(3, (float) item_venda.getValor_unitario());
@@ -122,14 +116,13 @@ public class ItemVenda {
 
         }
         return null;
-        //Apaguei tudo para encontrar o erro
 
     }
 
     public static Vector<Visão<Integer>> getVisõesFiltradas(int pagamento, String sexo_cliente, int formulacao) {
         String sql = " select tab_vendas.id_venda, tab_vendas.forma_pagamento as Forma_pagamento, clientes.Nome,  "
                 + "clientes.Sexo, herbicida.formulacao, group_concat(' ', herbicida.nome, ' Formulacao: ', Case herbicida.formulacao When '1' Then 'Po' When '2' Then 'Liquido' When '3' Then 'Granulado' End) as produtos_venda, "
-        + "tab_vendas.valor_total, tab_vendas.precisa_nfe from tab_vendas, herbicida, clientes, tab_itemvenda where tab_itemvenda.venda_id =  tab_vendas.id_venda  And herbicida.id = tab_itemvenda.herbicida_id and Clientes.Cpf = Tab_vendas.cliente_id ";
+                + "tab_vendas.valor_total, tab_vendas.precisa_nfe from tab_vendas, herbicida, clientes, tab_itemvenda where tab_itemvenda.venda_id =  tab_vendas.id_venda  And herbicida.id = tab_itemvenda.herbicida_id and Clientes.Cpf = Tab_vendas.cliente_id ";
 
         Vector<Visão<Integer>> visões = new Vector<Visão<Integer>>();
 
@@ -140,7 +133,7 @@ public class ItemVenda {
         String mensagem_categoria = null;
 
         if (pagamento > 0) {
-            sql += " AND tab_vendas.forma_pagamento = " + pagamento ;
+            sql += " AND tab_vendas.forma_pagamento = " + pagamento;
         }
 
         if (formulacao > 0) {
@@ -150,11 +143,8 @@ public class ItemVenda {
         if (!sexo_cliente.equals("x")) {
             sql += " AND clientes.sexo = '" + sexo_cliente + "'";
         }
-        
-      //  sql+= " Order by tab_vendas.id_venda ";
-        sql+= "  Group by tab_vendas.id_venda "; 
-        System.out.println(sql);
 
+        sql += "  Group by tab_vendas.id_venda ";
         try {
             int i = 0;
             try (PreparedStatement comando = BD.conexão.prepareStatement(sql)) {
@@ -172,14 +162,13 @@ public class ItemVenda {
                     } else {
                         mensagem_nfe = " Sem Emissao de Nota Fiscal ";
                     }
-
-                    if (lista_resultados.getString("herbicida.formulacao").equals("1")) {
+                    if (lista_resultados.getString("herbicida.formulacao").equals("0")) {
                         mensagem_categoria = "Formulacao em Po";
                     }
-                    if (lista_resultados.getString("herbicida.formulacao").equals("2")) {
+                    if (lista_resultados.getString("herbicida.formulacao").equals("1")) {
                         mensagem_categoria = "Formulacao Liquida";
                     }
-                    if (lista_resultados.getString("herbicida.formulacao").equals("3")) {
+                    if (lista_resultados.getString("herbicida.formulacao").equals("2")) {
                         mensagem_categoria = "Formulacoa modo granulado";
                     }
 
@@ -197,16 +186,16 @@ public class ItemVenda {
                             lista_resultados.getInt("tab_vendas.id_venda"),
                             " [ " + i + " ]" + "     VENDA Nº : "
                             + lista_resultados.getString("tab_vendas.id_venda") + " - "
-                            + mensagem_categoria + " - CLIENTE: "
-                            + lista_resultados.getString("clientes.Nome") + " - "
-                            + sexo_cliente1
+                            + mensagem_categoria + " -  CLIENTE: "
+                            + lista_resultados.getString("clientes.Nome") + "   -   "
+                            + sexo_cliente1 + " - "
                             + "" + " HERBICIDAS ADQUIRIDOS: [ "
-                            + lista_resultados.getString("produtos_venda") + " ] - "
-                          //  + lista_resultados.getString("precisa_nfe")
-                         //   + lista_resultados.getString("tab_itemvenda.valor_unitario") + " - "
+                            + lista_resultados.getString("produtos_venda") + " ]   -   "
+                            //  + lista_resultados.getString("precisa_nfe")
+                            //   + lista_resultados.getString("tab_itemvenda.valor_unitario") + " - "
                             + " TOTAL VENDA R$: "
-                            + lista_resultados.getString("tab_vendas.valor_total") + " - "
-                            + mensagem_nfe));
+                            + lista_resultados.getString("tab_vendas.valor_total")));
+                          //  + mensagem_nfe));
                 }
                 lista_resultados.close();
                 comando.close();

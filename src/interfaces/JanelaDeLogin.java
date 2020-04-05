@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaces;
 
 import entidade.Funcionario;
@@ -15,15 +10,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import persistencia.BD;
 import util.Utilitarios;
 
-
 public class JanelaDeLogin extends javax.swing.JFrame {
 
- 
     public JanelaDeLogin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         BD.criaConexãoComando();
         initComponents();
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,6 +36,11 @@ public class JanelaDeLogin extends javax.swing.JFrame {
         setTitle("Seja Bem vindo ao Sistema de Vendas de Herbicidas - UFGD");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -137,7 +136,7 @@ public class JanelaDeLogin extends javax.swing.JFrame {
                     .addComponent(usuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UsuarioLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -155,41 +154,41 @@ public class JanelaDeLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void acessarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessarButtonActionPerformed
-       
-         try {
+
+        try {
             int status;
             String usuario, senha;
             usuario = usuarioTextField.getText().trim();
             senha = String.valueOf(senhaPasswordField.getPassword()).trim();
-            
-            Funcionario funcionario = new Funcionario(usuario, " ", senha, " ", " ", " " );;
+
+            Funcionario funcionario = new Funcionario(usuario, " ", senha, " ", " ", " ");;
             status = funcionario.efetualogin(usuario, senha);
-            
-           if(status ==0){
-             
-                     JOptionPane.showMessageDialog(this, "Login não encontrado: - Tente Novametne");
-                     Utilitarios limpar = new Utilitarios();
-                     limpar.LimpaTela(jPanel1);
-           }
-             else{
-                 this.dispose();
-           } 
-            
+
+            if (status == 0) {
+
+                JOptionPane.showMessageDialog(this, "Login não encontrado: - Tente Novametne");
+                Utilitarios limpar = new Utilitarios();
+                limpar.LimpaTela(jPanel1);
+            } else {
+                this.dispose();
+            }
+
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "usuário ou senha não conferem: - Tente Novamente: " + erro);
         }
-     
+
     }//GEN-LAST:event_acessarButtonActionPerformed
 
     private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
-                System.exit(0);
-        ;
+        System.exit(0);
     }//GEN-LAST:event_sairButtonActionPerformed
 
- 
-    
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

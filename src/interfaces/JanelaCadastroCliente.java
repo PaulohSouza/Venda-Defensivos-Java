@@ -4,12 +4,9 @@ import java.util.Vector;
 import controle.ControladorCadastroCliente;
 import entidade.Cliente;
 import entidade.Endereço;
-
 import entidade.Visão;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JOptionPane;
-
 import util.Data;
 import javax.swing.DefaultComboBoxModel;
 
@@ -21,16 +18,9 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
     public JanelaCadastroCliente(ControladorCadastroCliente controlador) {
         this.controlador = controlador;
         clientes_cadastrados = Cliente.getVisões();
-        initComponents();
-        this.setLocationRelativeTo(null);
-        inicializar_sexoButtonGroup();
-    }
 
-  private void inicializar_sexoButtonGroup(){
-      masculinoRadioButton.setActionCommand("masculino");
-      femininoRadioButton.setActionCommand("feminino");
-   }
-    
+        initComponents();
+    }
 
     @SuppressWarnings("unchecked")
 
@@ -72,8 +62,11 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             telefone_clienteFormattedTextField.setText(cliente.getTelefone());
             celularFormattedTextFiel.setText(cliente.getCelular());
             data_nascimento_FormattedTextField.setText((cliente.getNascimentoData() + ""));
-            System.out.println(Cliente.getSexos().toString());
- 
+            if (cliente.getSexo().equals("m")) {
+                masculinoRadioButton.setSelected(true);
+            } else {
+                femininoRadioButton.setSelected(true);
+            }
             ruaTextField.setText(cliente.getEndereço().getRua());
             bairroTextField.setText(cliente.getEndereço().getBairro());
             numeroTextField.setText(cliente.getEndereço().getNúmero());
@@ -102,7 +95,6 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
                 visão.setInfo(cliente.getVisão().getInfo());
                 clientes_cadastradosComboBox.updateUI();
                 clientes_cadastradosComboBox.setSelectedItem(visão);
-
             }
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -125,7 +117,6 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             } else {
                 clientes_cadastradosComboBox.setSelectedIndex(-1);
             }
-            limparCamposTexto(evt);
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
                     JOptionPane.ERROR_MESSAGE);
@@ -140,9 +131,9 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             return null;
         }
         if (cpf.isEmpty()) {
-            return null; 
+            return null;
         }
-        System.out.println("Cpf falhou");
+
         String nome = nomeTextField.getText();
         if (nome.isEmpty()) {
             return null;
@@ -151,21 +142,18 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (rg.isEmpty()) {
             return null;
         }
-        
-         System.out.println("RG");
+
         String email = emailTextField.getText();
         if (email.isEmpty()) {
             return null;
         }
-  
-         System.out.println("Email");
+
         String telefone = telefone_clienteFormattedTextField.getText();
         if (telefone.equals(aux_celular)) {
             if (telefone.isEmpty()) {
                 return null;
             }
         }
-                 System.out.println("Telefonme");
         String celular = celularFormattedTextFiel.getText();
         if (celular.equals(aux_celular)) {
             return null;
@@ -173,29 +161,13 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (celular.isEmpty()) {
             return null;
         }
-        System.out.println("Celular");
+
         String data_nascimento = data_nascimento_FormattedTextField.getText();
-      //  if (data_nascimento.isEmpty()) {
-        //    return null;
-     //   }
         Data data_nova = Data.toData(data_nascimento);
-    //    if (data_nova == null) {
-      //      return null;
-        
-        System.out.println("Data retornou");
-        
-         Cliente.Sexo sexo = null;
-         if(sexoButtonGroup.getSelection() != null){
-            String sexo1 = sexoButtonGroup.getSelection().getActionCommand();
-            if(sexo1 == "masculino")
-                sexo = Cliente.Sexo.values()[0];
-            else if(sexo1 == "feminino")
-                sexo = Cliente.Sexo.values()[1];
-        } else return null;
- 
-        
-     /* 
         String sexo = null;
+       if(sexoButtonGroup == null){
+           return null;
+        }
         if (masculinoRadioButton.isSelected()) {
             sexo = "m";
         } else if (femininoRadioButton.isSelected()) {
@@ -204,12 +176,10 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             return null;
         }
 
-          System.out.println("nao encontrou sexo");
         if (sexo.isEmpty()) {
             return null;
         }
 
-*/
         String rua = ruaTextField.getText();
         if (rua.isEmpty()) {
             return null;
@@ -239,15 +209,20 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (cep.isEmpty()) {
             return null;
         }
-System.out.println("Cep");
-        String estado = estadoselecionarComboBox.getSelectedItem().toString();
-      
-        /*  if (sexo.contains("Selecione")) {
+        String estado = "";
+        if (estadoselecionarComboBox.getSelectedIndex() > 0) {
+            estado = estadoselecionarComboBox.getSelectedItem().toString();
+        } else {
             return null;
         }
-*/
-      
-System.out.println("chegou");
+
+        if (estadoselecionarComboBox.getSelectedIndex() == 00) {
+            return null;
+        }
+        if (sexo.contains("Selecione")) {
+            return null;
+        }
+
         Endereço endereço = new Endereço(rua, numero, complemento, bairro, cidade, cep, estado);
         return new Cliente(cpf, nome, rg, data_nascimento, sexo, email, telefone, celular, endereço);
     }
@@ -259,10 +234,8 @@ System.out.println("chegou");
         rgTextField.setText("");
         telefone_clienteFormattedTextField.setText("");
         celularFormattedTextFiel.setText("");
-
+        sexoButtonGroup.clearSelection();
         data_nascimento_FormattedTextField.setText("");
-        masculinoRadioButton.setActionCommand("");
-        femininoRadioButton.setActionCommand("");
         emailTextField.setText("");
         estadoselecionarComboBox.setActionCommand("");
         cepFormattedTextField.setText("");
@@ -667,20 +640,10 @@ System.out.println("chegou");
         masculinoRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         sexoButtonGroup.add(masculinoRadioButton);
         masculinoRadioButton.setText("Masculino");
-        masculinoRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                masculinoRadioButtonActionPerformed(evt);
-            }
-        });
 
         femininoRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         sexoButtonGroup.add(femininoRadioButton);
         femininoRadioButton.setText("Feminino");
-        femininoRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                femininoRadioButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout dadosPessoaisPanelLayout = new javax.swing.GroupLayout(dadosPessoaisPanel);
         dadosPessoaisPanel.setLayout(dadosPessoaisPanelLayout);
@@ -827,14 +790,13 @@ System.out.println("chegou");
 
     private void removerClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteButtonActionPerformed
         removerCliente(evt);
-        
-        
-        
+        limparCamposTexto(evt);
+
     }//GEN-LAST:event_removerClienteButtonActionPerformed
 
     private void limpar_dados_interfacesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpar_dados_interfacesButtonActionPerformed
         limparCamposTexto(evt);
-     
+
     }//GEN-LAST:event_limpar_dados_interfacesButtonActionPerformed
 
     private void ruaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ruaTextFieldActionPerformed
@@ -847,17 +809,16 @@ System.out.println("chegou");
 
     private void cepFormattedTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cepFormattedTextFieldKeyPressed
         // TODO add your handling code here:
-       if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
 
             Endereço obj = Endereço.buscaCep(cepFormattedTextField.getText());
-            if(obj != null){
-            ruaTextField.setText(obj.getRua());
-            bairroTextField.setText(obj.getBairro());
-            cidadeTextField.setText(obj.getCidade());
-            estadoselecionarComboBox.setSelectedItem(obj.getEstado());
-            numeroTextField.grabFocus();
-            }
-            else{
+            if (obj != null) {
+                ruaTextField.setText(obj.getRua());
+                bairroTextField.setText(obj.getBairro());
+                cidadeTextField.setText(obj.getCidade());
+                estadoselecionarComboBox.setSelectedItem(obj.getEstado());
+                numeroTextField.grabFocus();
+            } else {
                 cepFormattedTextField.setText("");
                 cepFormattedTextField.grabFocus();
             }
@@ -868,15 +829,6 @@ System.out.println("chegou");
         // TODO add your handling code here:
     }//GEN-LAST:event_cepFormattedTextFieldInputMethodTextChanged
 
-    private void masculinoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masculinoRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_masculinoRadioButtonActionPerformed
-
-    private void femininoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femininoRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_femininoRadioButtonActionPerformed
-
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContatoPanel;

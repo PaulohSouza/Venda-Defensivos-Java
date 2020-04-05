@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-
 public class ControladorCadastroCliente {
 
     public ControladorCadastroCliente() {
@@ -24,7 +23,7 @@ public class ControladorCadastroCliente {
     }
 
     public String alterarCliente(Cliente cliente) {
-        Cliente cliente1 = Cliente.buscarCliente(cliente.getCpf());  
+        Cliente cliente1 = Cliente.buscarCliente(cliente.getCpf());
         if (cliente1 != null) {
             return Cliente.alterarCliente(cliente);
         } else {

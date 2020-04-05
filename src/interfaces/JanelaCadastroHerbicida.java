@@ -20,7 +20,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
 
     ControladorCadastroHerbicida controlador;
     Vector<Visão<Integer>> herbicidas_cadastrados;
-
+    int id_formulacao = 0;
+    
     public JanelaCadastroHerbicida(ControladorCadastroHerbicida controlador) {
        this.controlador = controlador;
         herbicidas_cadastrados = Herbicida.getVisões();
@@ -63,6 +64,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
    private Herbicida obterHerbicidaInformado() {
        
        String auxiliar = "";
+       String aux_valor = "";
         //valores tipo String
         String nome = nome_produtoTextField.getText();
         if (nome.isEmpty()) return null;
@@ -73,27 +75,34 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         String empresa = empresaTextField.getText();
         if(empresa.isEmpty())return null;
    
-        //Valores numéricos 
-        auxiliar = valor_unitarioTextField.getText();    
-        if(auxiliar.isEmpty()) return null;
+        Formulacao formulacao1 = null;  
+        if (formulacaoComboBox.getSelectedIndex()>=0){
+             formulacao1 = Formulacao.values()[formulacaoComboBox.getSelectedIndex()];
+        }else{
+            return null;
+        }
+       
+       aux_valor = valor_unitarioTextField.getText();    
+        if(aux_valor.isEmpty()) return null;
         
         float valorU = 0F;
         try{
-            valorU = Float.valueOf(auxiliar);
+            valorU = Float.valueOf(aux_valor);
         }catch(Exception ex){
-            System.out.println("Erro ao converter valores");
+            JOptionPane.showMessageDialog(this,"Erro ao converter valores");
             return null;
         }
           
         auxiliar = quantidade_estoqueTextField.getText();
-        if(auxiliar.isEmpty()) return null;
+        if(auxiliar.isEmpty()) 
+            return null;
        
         int estoque = 0;
      
         try{
         estoque = Integer.valueOf(auxiliar);
         }catch(Exception ex){
-            System.out.println("Erro ao converter valores");
+            JOptionPane.showMessageDialog(this,"Erro ao converter valores");
             return null;
         }
         if(estoque==0) return null;
@@ -101,19 +110,12 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         int id;
         if (idTextField.getText().isEmpty()) {
             id = 0;
-            System.out.println("id vazio");
+           
         } else {
             id = Integer.parseInt(idTextField.getText().trim());
-            System.out.println("id" + id);
+  
         }
-       
-        Formulacao formulacao1 = null;
-           
-        if (formulacaoComboBox.getSelectedIndex()>=0) 
-             formulacao1 = Formulacao.values()[formulacaoComboBox.getSelectedIndex()];
-        else
-            return null;
-         
+
         Boolean precisa_inscricao_estadual = precisa_ieCheckBox.isSelected();
    
         return new Herbicida(id, nome,codigo_barras, empresa, valorU, estoque, formulacao1, precisa_inscricao_estadual);
@@ -132,12 +134,13 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         if (mensagem_erro == null) {
             herbicidas_cadastrados.remove(visão);
             new Utilitarios().LimpaTela(dados_produtosPanel);
+            herbicidas_cadastradosComboBox.setSelectedIndex(-1);
             idTextField.enable(true);
             if (herbicidas_cadastrados.size() >= 1) {
                 herbicidas_cadastradosComboBox.setSelectedIndex(0);
+                formulacaoComboBox.setSelectedIndex(-1);
             } else {
-                herbicidas_cadastradosComboBox.setSelectedIndex(-1);
-            }
+           }
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
                     JOptionPane.ERROR_MESSAGE);
@@ -146,18 +149,17 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
     
        //---------------------Alteração-----------------
     private void alterarHerbicida(java.awt.event.ActionEvent evt) {
-        System.out.println("Inicio");
+       
         Herbicida herbicida = obterHerbicidaInformado();
         String mensagem_erro = null;
         if (herbicida != null) {       
             mensagem_erro = controlador.alterarHerbicida(herbicida);
         } else {
-            mensagem_erro = "Algum atributo do funcionário não foi informado";
+            mensagem_erro = "Erro ao inserir, Algum atributo não foi informado ou não digitado corretamente"; 
         }
-        if (mensagem_erro == null) {
+            if (mensagem_erro == null) {
             Visão<Integer> visão = getVisãoHerbicidasCadastrados(herbicida.getId());
             if (visão != null) {
-
                 visão.setInfo(herbicida.getVisão().getInfo());
                 herbicidas_cadastradosComboBox.updateUI();
                 herbicidas_cadastradosComboBox.setSelectedItem(visão);  
@@ -166,7 +168,6 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
     //---------------------Consultar----------------
     private void consultarHerbicida(java.awt.event.ActionEvent evt) {
         Visão<Integer> visão = (Visão<Integer>) herbicidas_cadastradosComboBox.getSelectedItem();
@@ -174,7 +175,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         String mensagem_erro = null;
         if (visão != null) {
             herbicida = Herbicida.buscarHerbicida(visão.getChave());
-         //   System.out.println("Consulta_teste");
+    
             if (herbicida == null) {
                 mensagem_erro = "Herbicida não cadastrado";
             }
@@ -182,7 +183,6 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             mensagem_erro = "Nenhum herbicida selecionado";
         }
         if (mensagem_erro == null) {
-            idTextField.setText(herbicida.getId() + " ");
             nome_produtoTextField.setText(herbicida.getNome());
             codigo_barrasTextField.setText(herbicida.getCodig_barras());
             empresaTextField.setText(herbicida.getEmpresa());   
@@ -191,6 +191,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             formulacaoComboBox.setSelectedIndex(herbicida.getFormulacao().ordinal());
             precisa_ieCheckBox.setSelected(herbicida.getPrecisa_registro());
             ultimas_consultasTextArea.append(herbicida.getVisão().toString()+"\n");
+            id_formulacao = formulacaoComboBox.getSelectedIndex();
+            idTextField.setText(herbicida.getId() + " ");
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -202,12 +204,19 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         List<Herbicida> lista = Herbicida.listarHerbicida();
         DefaultTableModel dados = (DefaultTableModel) herbicidas_cadastradosTable.getModel();
         dados.setNumRows(0);
+        String registro = "";
+        
         for(Herbicida c: lista){
+            if(c.getPrecisa_registro() == true){
+                registro = "Sim";
+            }else
+                registro = "Nao";
+        
         dados.addRow(new Object[]{
             c.getId(),
             c.getNome(),  c.getCodig_barras(), c.getEmpresa(),
             c.getValor_unitario(), c.getQuantidade_estoque(), c.getFormulacao(),
-            c.getPrecisa_registro()
+            registro
         });      
     }
  }    
@@ -230,7 +239,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         empresaTextField = new javax.swing.JTextField();
         senhaLabel = new javax.swing.JLabel();
         nivelLabel = new javax.swing.JLabel();
-        formulacaoComboBox = new javax.swing.JComboBox<>();
+        formulacaoComboBox = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         herbicidas_cadastradosComboBox = new javax.swing.JComboBox();
@@ -314,6 +323,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
 
         idTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         idTextField.setToolTipText("");
+        idTextField.setEnabled(false);
 
         codigo_barrasTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         codigo_barrasTextField.setToolTipText("");
@@ -334,7 +344,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         nivelLabel.setText("Formulação");
 
         formulacaoComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        formulacaoComboBox.setModel(new DefaultComboBoxModel (Herbicida.formulacoes));
+        formulacaoComboBox.setModel(new DefaultComboBoxModel(Herbicida.formulacoes));
+        formulacaoComboBox.setToolTipText("");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Produtos Cadastrados:");
@@ -680,9 +691,11 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
     
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // ao abrir a Tela
+        formulacaoComboBox.setSelectedIndex(-1);
         listar();
         UIManager.put("herbicidas_cadastradosComboBox.disabledForeground", Color.BLACK);
         UIManager.put("herbicidas_cadastradosComboBox.disabledBackground", Color.WHITE);
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void herbicidas_cadastradosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_herbicidas_cadastradosComboBoxActionPerformed
@@ -696,7 +709,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
 
     private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
         consultarHerbicida(evt);
-        idTextField.enable(false); //Impede Edição de Chave
+        idTextField.enable(false); //Impede Edição de Chave  
+       
     }//GEN-LAST:event_consultarButtonActionPerformed
 
     private void herbicidas_cadastradosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_herbicidas_cadastradosTableMouseClicked
@@ -709,9 +723,18 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
        empresaTextField.setText(herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 3).toString());
        valor_unitarioTextField.setText(herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 4).toString());
        quantidade_estoqueTextField.setText(herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 5).toString());  
-       formulacaoComboBox.setSelectedItem(herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 6).toString());
+       if ((herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 6).toString()).equals("Po")){
+       formulacaoComboBox.setSelectedIndex(0);
+       }else{
+           if((herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 6).toString()).equals("Liquido")){
+            formulacaoComboBox.setSelectedIndex(1);
+                }else{
+                formulacaoComboBox.setSelectedIndex(2); 
+           }
+       }
+            
        precisa_ie = (herbicidas_cadastradosTable.getValueAt(herbicidas_cadastradosTable.getSelectedRow(), 7).toString());
-       if(precisa_ie == "true"){
+       if(precisa_ie == "Sim"){
            precisa_ieCheckBox.setSelected(true);
        }else{
            precisa_ieCheckBox.setSelected(false);
@@ -720,21 +743,27 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
        Herbicida herbicida = obterHerbicidaInformado();
        Visão<Integer> visão = getVisãoHerbicidasCadastrados(herbicida.getId());
        herbicidas_cadastradosComboBox.setSelectedItem(visão);
-       ultimas_consultasTextArea.append(herbicida.getVisão().toString()+"\n");  
+       ultimas_consultasTextArea.append(herbicida.getVisão().toString()+"\n"); 
+      
     }//GEN-LAST:event_herbicidas_cadastradosTableMouseClicked
 
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
          removerHerbicida(evt);
+         precisa_ieCheckBox.setSelected(false);
+         formulacaoComboBox.setSelectedIndex(-1);
          listar();  
     }//GEN-LAST:event_removerButtonActionPerformed
 
     private void alterarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarButtonActionPerformed
         alterarHerbicida(evt);
         listar();
+        
     }//GEN-LAST:event_alterarButtonActionPerformed
 
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
         new Utilitarios().LimpaTela(dados_produtosPanel);
+        formulacaoComboBox.setSelectedIndex(-1);
+        precisa_ieCheckBox.setSelected(false);
         idTextField.enable(true);
     }//GEN-LAST:event_limparButtonActionPerformed
 
@@ -778,7 +807,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
     private javax.swing.JPanel dados_produtosPanel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField empresaTextField;
-    private javax.swing.JComboBox<String> formulacaoComboBox;
+    private javax.swing.JComboBox formulacaoComboBox;
     private javax.swing.JComboBox herbicidas_cadastradosComboBox;
     private javax.swing.JTable herbicidas_cadastradosTable;
     private javax.swing.JTextField idTextField;

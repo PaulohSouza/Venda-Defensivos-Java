@@ -26,8 +26,7 @@ public class JanelaCadastroFuncionario extends javax.swing.JFrame {
        initComponents();
     }
     @SuppressWarnings("unchecked")
-    
-    
+
    //---------------------Inserção-----------
    private void inserirFuncionario(java.awt.event.ActionEvent evt) {
         Funcionario funcionario = obterFuncionarioInformado();
@@ -172,6 +171,7 @@ public class JanelaCadastroFuncionario extends javax.swing.JFrame {
         DefaultTableModel dados = (DefaultTableModel) funcionarios_cadastradosTable.getModel();
         dados.setNumRows(0);
         for(Funcionario c: lista){
+        
         dados.addRow(new Object[]{
             c.getLogin(),
             c.getNome(),  c.getSenha(), c.getEmail(),
