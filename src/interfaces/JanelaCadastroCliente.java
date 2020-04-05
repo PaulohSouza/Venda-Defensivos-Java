@@ -21,9 +21,16 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
     public JanelaCadastroCliente(ControladorCadastroCliente controlador) {
         this.controlador = controlador;
         clientes_cadastrados = Cliente.getVisões();
-
         initComponents();
+        this.setLocationRelativeTo(null);
+        inicializar_sexoButtonGroup();
     }
+
+  private void inicializar_sexoButtonGroup(){
+      masculinoRadioButton.setActionCommand("masculino");
+      femininoRadioButton.setActionCommand("feminino");
+   }
+    
 
     @SuppressWarnings("unchecked")
 
@@ -65,11 +72,8 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             telefone_clienteFormattedTextField.setText(cliente.getTelefone());
             celularFormattedTextFiel.setText(cliente.getCelular());
             data_nascimento_FormattedTextField.setText((cliente.getNascimentoData() + ""));
-            if (cliente.getSexo().equals("m")) {
-                masculinoRadioButton.setSelected(true);
-            } else {
-                femininoRadioButton.setSelected(true);
-            }
+            System.out.println(Cliente.getSexos().toString());
+ 
             ruaTextField.setText(cliente.getEndereço().getRua());
             bairroTextField.setText(cliente.getEndereço().getBairro());
             numeroTextField.setText(cliente.getEndereço().getNúmero());
@@ -121,6 +125,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
             } else {
                 clientes_cadastradosComboBox.setSelectedIndex(-1);
             }
+            limparCamposTexto(evt);
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
                     JOptionPane.ERROR_MESSAGE);
@@ -178,7 +183,19 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
       //      return null;
         
         System.out.println("Data retornou");
-         String sexo = null;
+        
+         Cliente.Sexo sexo = null;
+         if(sexoButtonGroup.getSelection() != null){
+            String sexo1 = sexoButtonGroup.getSelection().getActionCommand();
+            if(sexo1 == "masculino")
+                sexo = Cliente.Sexo.values()[0];
+            else if(sexo1 == "feminino")
+                sexo = Cliente.Sexo.values()[1];
+        } else return null;
+ 
+        
+     /* 
+        String sexo = null;
         if (masculinoRadioButton.isSelected()) {
             sexo = "m";
         } else if (femininoRadioButton.isSelected()) {
@@ -186,11 +203,13 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         } else {
             return null;
         }
+
           System.out.println("nao encontrou sexo");
         if (sexo.isEmpty()) {
             return null;
         }
 
+*/
         String rua = ruaTextField.getText();
         if (rua.isEmpty()) {
             return null;
@@ -222,9 +241,12 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         }
 System.out.println("Cep");
         String estado = estadoselecionarComboBox.getSelectedItem().toString();
-        if (sexo.contains("Selecione")) {
+      
+        /*  if (sexo.contains("Selecione")) {
             return null;
         }
+*/
+      
 System.out.println("chegou");
         Endereço endereço = new Endereço(rua, numero, complemento, bairro, cidade, cep, estado);
         return new Cliente(cpf, nome, rg, data_nascimento, sexo, email, telefone, celular, endereço);
@@ -239,7 +261,8 @@ System.out.println("chegou");
         celularFormattedTextFiel.setText("");
 
         data_nascimento_FormattedTextField.setText("");
-        
+        masculinoRadioButton.setActionCommand("");
+        femininoRadioButton.setActionCommand("");
         emailTextField.setText("");
         estadoselecionarComboBox.setActionCommand("");
         cepFormattedTextField.setText("");
@@ -265,7 +288,7 @@ System.out.println("chegou");
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jProgressBar1 = new javax.swing.JProgressBar();
-        sexoGroup = new javax.swing.ButtonGroup();
+        sexoButtonGroup = new javax.swing.ButtonGroup();
         data_nascimento_Label = new javax.swing.JLabel();
         endereçoPanel = new javax.swing.JPanel();
         ruaLabel = new javax.swing.JLabel();
@@ -642,12 +665,22 @@ System.out.println("chegou");
         nomeTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         masculinoRadioButton.setBackground(new java.awt.Color(255, 255, 255));
-        sexoGroup.add(masculinoRadioButton);
+        sexoButtonGroup.add(masculinoRadioButton);
         masculinoRadioButton.setText("Masculino");
+        masculinoRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                masculinoRadioButtonActionPerformed(evt);
+            }
+        });
 
         femininoRadioButton.setBackground(new java.awt.Color(255, 255, 255));
-        sexoGroup.add(femininoRadioButton);
+        sexoButtonGroup.add(femininoRadioButton);
         femininoRadioButton.setText("Feminino");
+        femininoRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                femininoRadioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dadosPessoaisPanelLayout = new javax.swing.GroupLayout(dadosPessoaisPanel);
         dadosPessoaisPanel.setLayout(dadosPessoaisPanelLayout);
@@ -794,7 +827,7 @@ System.out.println("chegou");
 
     private void removerClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerClienteButtonActionPerformed
         removerCliente(evt);
-        limparCamposTexto(evt);
+        
         
         
     }//GEN-LAST:event_removerClienteButtonActionPerformed
@@ -834,6 +867,14 @@ System.out.println("chegou");
     private void cepFormattedTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_cepFormattedTextFieldInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_cepFormattedTextFieldInputMethodTextChanged
+
+    private void masculinoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masculinoRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_masculinoRadioButtonActionPerformed
+
+    private void femininoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femininoRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_femininoRadioButtonActionPerformed
 
    
 
@@ -883,7 +924,7 @@ System.out.println("chegou");
     private javax.swing.JLabel rg_Label;
     private javax.swing.JLabel ruaLabel;
     private javax.swing.JTextField ruaTextField;
-    private javax.swing.ButtonGroup sexoGroup;
+    private javax.swing.ButtonGroup sexoButtonGroup;
     private javax.swing.JLabel sexoLabel;
     private javax.swing.JLabel telefoneLabel;
     private javax.swing.JFormattedTextField telefone_clienteFormattedTextField;

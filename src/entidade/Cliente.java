@@ -30,7 +30,7 @@ public class Cliente {
                     lista_resultados.getString("Nome"),
                     lista_resultados.getString("Rg"),
                     lista_resultados.getString("NascimentoDATA"),
-                    lista_resultados.getString("Sexo"),
+                    cliente.getSexo().values()[lista_resultados.getInt("Sexo")],
                     lista_resultados.getString("Email"),
                     lista_resultados.getString("Telefone"),
                     lista_resultados.getString("Celular"),
@@ -43,6 +43,7 @@ public class Cliente {
                         lista_resultados.getString("Cep"),
                         lista_resultados.getString("Estado")));      
             }
+            
             lista_resultados.close();
             comando.close();
            
@@ -100,7 +101,7 @@ public class Cliente {
             comando.setString(2, cliente.getNome());
             comando.setString(3, cliente.getRg());
             comando.setString(4, cliente.getNascimentoData());
-            comando.setString(5, cliente.getSexo());
+            comando.setInt(5, cliente.getSexo().ordinal());
             comando.setString(6, cliente.getEmail());
             comando.setString(7, cliente.getTelefone());
             comando.setString(8, cliente.getCelular());
@@ -123,7 +124,7 @@ public class Cliente {
             comando.setString(1, cliente.getNome());
             comando.setString(2, cliente.getRg());
             comando.setString(3, cliente.getNascimentoData());
-            comando.setString(4, cliente.getSexo());
+            comando.setInt(4, cliente.getSexo().ordinal());
             comando.setString(5, cliente.getEmail());
             comando.setString(6, cliente.getTelefone());
             comando.setString(7, cliente.getCelular());
@@ -172,6 +173,25 @@ public class Cliente {
     }
     
     public static String removerCliente(String CPF){
+       
+          String sql = "SELECT cliente_id FROM tab_vendas WHERE cliente_id = ?";
+        ResultSet lista_resultado;
+        try {
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, CPF);
+            lista_resultado = comando.executeQuery();
+            while (lista_resultado.next()) {
+                if (lista_resultado.getString("cliente_id").equals(CPF)) {
+                    return "Não é possível remover, pois existe uma Venda Cadastrada com este CPF";
+                }
+            }
+            lista_resultado.close();
+            comando.close();
+        } catch (SQLException exceção_sql) {
+            exceção_sql.printStackTrace();
+            return "Erro ao tentar conferir se existe vendas cadastradadas por esse CPF";
+        }
+        
         String sql1 = "SELECT Cod_endereço FROM  Clientes WHERE Cpf = ?";
         ResultSet lista_resultados = null;
         String cod_endereço = null;
@@ -236,11 +256,16 @@ public class Cliente {
         return visões;
     }
     
- 
-    private String cpf, nome, rg, nascimentoData, sexo, telefone, celular, email;
-    private Endereço endereço;
+   public enum Sexo {masculino, feminino};
     
-    public Cliente(String cpf, String nome, String rg, String nascimentoData, String sexo, String email, String telefone, String celular, Endereço endereço){
+    public static final Sexo[] sexos = Sexo.values();
+    
+ 
+    private String cpf, nome, rg, nascimentoData, telefone, celular, email;
+    private Endereço endereço;
+    private Sexo sexo;
+    
+    public Cliente(String cpf, String nome, String rg, String nascimentoData, Sexo sexo, String email, String telefone, String celular, Endereço endereço){
         this.cpf = cpf;
         this.nome = nome;
         this.rg = rg;
@@ -296,13 +321,19 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getSexo() {
+    public static Sexo[] getSexos() {
+        return sexos;
+    }
+
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
+
+   
 
     public String getTelefone() {
         return telefone;
@@ -327,10 +358,11 @@ public class Cliente {
     public void setEndereço(Endereço endereço) {
         this.endereço = endereço;
     }
-    
-    public String toString(){
-        return "CPF: " + cpf + "\nNome: " + nome + "\nData de nascimento: " + nascimentoData 
-                + "\nSexo: " + sexo + "\nTelefone: " + telefone + "\nEndereço: " + endereço.toString();
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "cpf=" + cpf + ", nome=" + nome + ", rg=" + rg + ", nascimentoData=" + nascimentoData + ", telefone=" + telefone + ", celular=" + celular + ", email=" + email + ", endere\u00e7o=" + endereço + ", sexo=" + sexo + '}';
     }
     
+  
 }

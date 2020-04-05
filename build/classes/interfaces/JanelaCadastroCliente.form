@@ -16,7 +16,7 @@
     </Component>
     <Component class="javax.swing.JProgressBar" name="jProgressBar1">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="sexoGroup">
+    <Component class="javax.swing.ButtonGroup" name="sexoButtonGroup">
     </Component>
     <Component class="javax.swing.JLabel" name="data_nascimento_Label">
       <Properties>
@@ -733,10 +733,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sexoGroup"/>
+              <ComponentRef name="sexoButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Masculino"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="masculinoRadioButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="femininoRadioButton">
           <Properties>
@@ -744,10 +747,13 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="sexoGroup"/>
+              <ComponentRef name="sexoButtonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Feminino"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="femininoRadioButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
