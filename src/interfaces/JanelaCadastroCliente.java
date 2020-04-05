@@ -137,6 +137,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (cpf.isEmpty()) {
             return null; 
         }
+        System.out.println("Cpf falhou");
         String nome = nomeTextField.getText();
         if (nome.isEmpty()) {
             return null;
@@ -145,17 +146,21 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (rg.isEmpty()) {
             return null;
         }
+        
+         System.out.println("RG");
         String email = emailTextField.getText();
         if (email.isEmpty()) {
             return null;
         }
-
+  
+         System.out.println("Email");
         String telefone = telefone_clienteFormattedTextField.getText();
         if (telefone.equals(aux_celular)) {
             if (telefone.isEmpty()) {
                 return null;
             }
         }
+                 System.out.println("Telefonme");
         String celular = celularFormattedTextFiel.getText();
         if (celular.equals(aux_celular)) {
             return null;
@@ -163,15 +168,16 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (celular.isEmpty()) {
             return null;
         }
+        System.out.println("Celular");
         String data_nascimento = data_nascimento_FormattedTextField.getText();
-        if (data_nascimento.isEmpty()) {
-            return null;
-        }
+      //  if (data_nascimento.isEmpty()) {
+        //    return null;
+     //   }
         Data data_nova = Data.toData(data_nascimento);
-        if (data_nova == null) {
-            return null;
-        }
-
+    //    if (data_nova == null) {
+      //      return null;
+        
+        System.out.println("Data retornou");
          String sexo = null;
         if (masculinoRadioButton.isSelected()) {
             sexo = "m";
@@ -180,7 +186,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         } else {
             return null;
         }
-        
+          System.out.println("nao encontrou sexo");
         if (sexo.isEmpty()) {
             return null;
         }
@@ -214,12 +220,12 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         if (cep.isEmpty()) {
             return null;
         }
-
+System.out.println("Cep");
         String estado = estadoselecionarComboBox.getSelectedItem().toString();
         if (sexo.contains("Selecione")) {
             return null;
         }
-
+System.out.println("chegou");
         Endereço endereço = new Endereço(rua, numero, complemento, bairro, cidade, cep, estado);
         return new Cliente(cpf, nome, rg, data_nascimento, sexo, email, telefone, celular, endereço);
     }
@@ -260,6 +266,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jProgressBar1 = new javax.swing.JProgressBar();
         sexoGroup = new javax.swing.ButtonGroup();
+        data_nascimento_Label = new javax.swing.JLabel();
         endereçoPanel = new javax.swing.JPanel();
         ruaLabel = new javax.swing.JLabel();
         numero_casaLabel = new javax.swing.JLabel();
@@ -295,7 +302,6 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         cpf_FormattedTextField = new javax.swing.JFormattedTextField();
         rg_Label = new javax.swing.JLabel();
         sexoLabel = new javax.swing.JLabel();
-        data_nascimento_Label = new javax.swing.JLabel();
         data_nascimento_FormattedTextField = new javax.swing.JFormattedTextField();
         rgTextField = new javax.swing.JTextField();
         nomeTextField = new javax.swing.JTextField();
@@ -309,6 +315,9 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
+
+        data_nascimento_Label.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        data_nascimento_Label.setText("Data De Nacimento");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Cliente");
@@ -621,9 +630,6 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
         sexoLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         sexoLabel.setText("Sexo");
 
-        data_nascimento_Label.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        data_nascimento_Label.setText("Data De Nacimento");
-
         try {
             data_nascimento_FormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -657,9 +663,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
                     .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(dadosPessoaisPanelLayout.createSequentialGroup()
                         .addComponent(rgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(data_nascimento_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(173, 173, 173)
                         .addComponent(data_nascimento_FormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addGroup(dadosPessoaisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -688,7 +692,6 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
                 .addGroup(dadosPessoaisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rg_Label)
                     .addComponent(rgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(data_nascimento_Label)
                     .addComponent(data_nascimento_FormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sexoLabel)
                     .addComponent(masculinoRadioButton)

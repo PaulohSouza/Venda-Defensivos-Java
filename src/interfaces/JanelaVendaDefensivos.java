@@ -76,7 +76,6 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         data_horaLabel = new javax.swing.JLabel();
         cargo_logadoLabel = new javax.swing.JLabel();
         usuario_logadoLabel = new javax.swing.JLabel();
-        nivel_logadoLabel = new javax.swing.JLabel();
         ImageIcon icon = new ImageIcon(getClass().getResource("/imagens/capa.JPG"));
         Image image = icon.getImage();
         capaDesktopPane = new javax.swing.JDesktopPane(){
@@ -87,6 +86,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         };
 
         ;
+        nivel_logadoLabel = new javax.swing.JLabel();
         BarraMenuBar = new javax.swing.JMenuBar();
         cadastrosMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem CadastrarClienteMenuItem = new javax.swing.JMenuItem();
@@ -94,7 +94,10 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         CadastrarEntregaMenuItem = new javax.swing.JMenuItem();
         cadastrar_FuncionariosMenuItem = new javax.swing.JMenuItem();
         consultasMenu = new javax.swing.JMenu();
+        filtro_vendasMenuItem = new javax.swing.JMenuItem();
         RelatoriosMenu = new javax.swing.JMenu();
+        gerenciamentoMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         designMenu = new javax.swing.JMenu();
         mudar_telaMenu = new javax.swing.JMenu();
         design_metalMenuItem = new javax.swing.JMenuItem();
@@ -122,6 +125,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
 
+        clientesButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         clientesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3clientes.png"))); // NOI18N
         clientesButton.setText("Clientes");
         clientesButton.setFocusable(false);
@@ -131,10 +135,12 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             }
         });
 
+        consultaButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         consultaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_ iconfinder_folder-saved-search_118905.png"))); // NOI18N
         consultaButton.setText("Consultar");
         consultaButton.setFocusable(false);
 
+        sairButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         sairButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3sair.png"))); // NOI18N
         sairButton.setText("Sair");
         sairButton.setFocusable(false);
@@ -144,6 +150,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             }
         });
 
+        herbicidabutton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         herbicidabutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3produtos.png"))); // NOI18N
         herbicidabutton.setText("Herbicidas");
         herbicidabutton.setFocusable(false);
@@ -153,6 +160,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             }
         });
 
+        vendasButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         vendasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3vendas.png"))); // NOI18N
         vendasButton.setText("Vendas");
         vendasButton.setFocusable(false);
@@ -177,7 +185,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
                 .addComponent(consultaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sairButton)
-                .addGap(0, 79, Short.MAX_VALUE))
+                .addGap(0, 106, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clientesButton, consultaButton, herbicidabutton, sairButton, vendasButton});
@@ -188,25 +196,23 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(herbicidabutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(herbicidabutton)
                         .addComponent(clientesButton))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(consultaButton)
-                            .addComponent(sairButton)
-                            .addComponent(vendasButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultaButton)
+                        .addComponent(sairButton)
+                        .addComponent(vendasButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clientesButton, consultaButton, sairButton, vendasButton});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clientesButton, consultaButton, herbicidabutton, sairButton, vendasButton});
 
         jPanel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED)));
 
-        usuario_logadoLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        usuario_logadoLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         usuario_logadoLabel2.setText("Usuário Logado: ");
 
-        data_horaLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        data_horaLabel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         data_horaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         data_horaLabel.setText("data_horaLabel");
 
@@ -218,25 +224,18 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         usuario_logadoLabel.setForeground(new java.awt.Color(0, 102, 102));
         usuario_logadoLabel.setText("Usuário Logado: Paulo Souza");
 
-        nivel_logadoLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nivel_logadoLabel.setForeground(new java.awt.Color(0, 102, 102));
-        nivel_logadoLabel.setText("Usuário Logado: Paulo Souza");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(usuario_logadoLabel2)
-                .addGap(22, 22, 22)
-                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cargo_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nivel_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(192, 192, 192)
-                .addComponent(data_horaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(cargo_logadoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(data_horaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,27 +243,39 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usuario_logadoLabel2)
-                    .addComponent(data_horaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cargo_logadoLabel)
                     .addComponent(usuario_logadoLabel)
-                    .addComponent(nivel_logadoLabel))
+                    .addComponent(data_horaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        nivel_logadoLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nivel_logadoLabel.setForeground(new java.awt.Color(0, 102, 102));
+        nivel_logadoLabel.setText("Usuário Logado: Paulo Souza");
+        nivel_logadoLabel.setEnabled(false);
+
+        capaDesktopPane.setLayer(nivel_logadoLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout capaDesktopPaneLayout = new javax.swing.GroupLayout(capaDesktopPane);
         capaDesktopPane.setLayout(capaDesktopPaneLayout);
         capaDesktopPaneLayout.setHorizontalGroup(
             capaDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, capaDesktopPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nivel_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66))
         );
         capaDesktopPaneLayout.setVerticalGroup(
             capaDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, capaDesktopPaneLayout.createSequentialGroup()
+                .addContainerGap(339, Short.MAX_VALUE)
+                .addComponent(nivel_logadoLabel)
+                .addGap(27, 27, 27))
         );
 
         cadastrosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/database_edit.png"))); // NOI18N
         cadastrosMenu.setText("Cadastros");
-        cadastrosMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cadastrosMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         CadastrarClienteMenuItem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         CadastrarClienteMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user_add.png"))); // NOI18N
@@ -312,17 +323,44 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         consultasMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/magnifier.png"))); // NOI18N
         consultasMenu.setText("Consultas");
-        consultasMenu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        consultasMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
+
+        filtro_vendasMenuItem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        filtro_vendasMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/application.png"))); // NOI18N
+        filtro_vendasMenuItem.setText("Filtro de Vendas");
+        filtro_vendasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtro_vendasMenuItemActionPerformed(evt);
+            }
+        });
+        consultasMenu.add(filtro_vendasMenuItem);
+
         BarraMenuBar.add(consultasMenu);
 
         RelatoriosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/map.png"))); // NOI18N
         RelatoriosMenu.setText("Relatórios");
-        RelatoriosMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 15)); // NOI18N
+        RelatoriosMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
         BarraMenuBar.add(RelatoriosMenu);
+
+        gerenciamentoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_relatoriosPNG.png"))); // NOI18N
+        gerenciamentoMenu.setText("Área Gerencial");
+        gerenciamentoMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/application_edit.png"))); // NOI18N
+        jMenuItem1.setText("Gerenciar Vendas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        gerenciamentoMenu.add(jMenuItem1);
+
+        BarraMenuBar.add(gerenciamentoMenu);
 
         designMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cog.png"))); // NOI18N
         designMenu.setText("Utilitários");
-        designMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
+        designMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
 
         mudar_telaMenu.setText("Alterar Design");
 
@@ -356,7 +394,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
         AjudaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/information.png"))); // NOI18N
         AjudaMenu.setText("Ajuda");
-        AjudaMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 15)); // NOI18N
+        AjudaMenu.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 18)); // NOI18N
 
         suporteonlineMenuItem.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         suporteonlineMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/status_online.png"))); // NOI18N
@@ -388,15 +426,15 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(capaDesktopPane, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(capaDesktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(capaDesktopPane)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -440,6 +478,7 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
 
     private void clientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesButtonActionPerformed
        new ControladorCadastroCliente();
+      
     }//GEN-LAST:event_clientesButtonActionPerformed
 
     private void herbicidabuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_herbicidabuttonActionPerformed
@@ -491,6 +530,14 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_sairButtonActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new ControladorGerenciamentoVenda(); 
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void filtro_vendasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtro_vendasMenuItemActionPerformed
+             new JanelaPesquisaEmFiltro().setVisible(true);; 
+    }//GEN-LAST:event_filtro_vendasMenuItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjudaMenu;
@@ -511,7 +558,10 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     private javax.swing.JMenuItem design_metalMenuItem;
     private javax.swing.JMenuItem design_motifMenuItem;
     private javax.swing.JMenuItem design_windowsMenuItem;
+    private javax.swing.JMenuItem filtro_vendasMenuItem;
+    private javax.swing.JMenu gerenciamentoMenu;
     private javax.swing.JButton herbicidabutton;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

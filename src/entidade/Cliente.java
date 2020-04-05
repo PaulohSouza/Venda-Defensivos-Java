@@ -39,10 +39,9 @@ public class Cliente {
                         lista_resultados.getString("Numero"),
                         lista_resultados.getString("Complemento"),
                         lista_resultados.getString("Bairro"),
-                        lista_resultados.getString("Cep"),
                         lista_resultados.getString("Cidade"),
-                        lista_resultados.getString("Estado"))); 
-                
+                        lista_resultados.getString("Cep"),
+                        lista_resultados.getString("Estado")));      
             }
             lista_resultados.close();
             comando.close();
@@ -160,8 +159,8 @@ public class Cliente {
             comando.setString(2, cliente.getEndereço().getNúmero() + "");
             comando.setString(3, cliente.getEndereço().getComplemento());
             comando.setString(4, cliente.getEndereço().getBairro());
-            comando.setString(5, cliente.getEndereço().getCep());
-            comando.setString(6, cliente.getEndereço().getCidade());
+            comando.setString(5, cliente.getEndereço().getCidade());
+            comando.setString(6, cliente.getEndereço().getCep());
             comando.setString(7, cliente.getEndereço().getEstado());
             comando.setString(8, cod_endereço);
             comando.executeUpdate();

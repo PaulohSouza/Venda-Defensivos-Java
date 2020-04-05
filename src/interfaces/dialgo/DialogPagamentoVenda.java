@@ -11,24 +11,21 @@ import entidade.Herbicida.Formulacao;
 import entidade.ItemVenda;
 import entidade.Venda;
 import entidade.Visão;
-import interfaces.JanelaCadastroVenda;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class DialogPagamentoVenda extends javax.swing.JDialog {
-    
+
     ControladorCadastroVenda controlador;
     String cliente_id;
     String data_venda;
     float valor_daVenda;
     DefaultTableModel carrinho;
-  
-    
-    public DialogPagamentoVenda(ControladorCadastroVenda controlador, String cliente, float valor_total,  DefaultTableModel carrinho_venda) {
+
+    public DialogPagamentoVenda(ControladorCadastroVenda controlador, String cliente, float valor_total, DefaultTableModel carrinho_venda) {
         super(new javax.swing.JFrame(), true);
         initComponents();
         cliente_id = cliente;
@@ -40,209 +37,216 @@ public class DialogPagamentoVenda extends javax.swing.JDialog {
         valor_descontoTextField.setText("0");
         carrinho = carrinho_venda;
         this.controlador = controlador;
-        
+
     }
-    
-     private void inserirVenda(java.awt.event.ActionEvent evt) {
+
+    private void inserirVenda(java.awt.event.ActionEvent evt) {
         Venda venda = obterDadosVenda();
-       
         String mensagem_erro = null;
         if (venda != null) {
             System.out.println("Obteve os dados");
             controlador.inserirVenda(venda);
         } else {
-             mensagem_erro = "Algum atributo do cliente não foi informado";
-            
-        } if(mensagem_erro == null){
-  
-            }else{
+            mensagem_erro = "Algum atributo do cliente não foi informado";
+
+        }
+        if (mensagem_erro == null) {
+
+        } else {
             mensagem_erro = "Algum atributo não foi informado";
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO",
-           JOptionPane.ERROR_MESSAGE);
-     }    
-    
-  }
-  private String VerificarValoresPagamento() {
-    float valor_pago = 0F; 
-      
-     String aux_desconto = valor_descontoTextField.getText();
-     String mensagem_erro = null;
-    
-    if(aux_desconto.isEmpty()) 
-        return mensagem_erro = "Valor desconto vazio";
-        
-    float valor_desconto = 0;    
-       
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private String VerificarValoresPagamento() {
+        float valor_pago = 0F;
+
+        String aux_desconto = valor_descontoTextField.getText();
+        String mensagem_erro = null;
+
+        if (aux_desconto.isEmpty()) {
+            return mensagem_erro = "Valor desconto vazio";
+        }
+
+        float valor_desconto = 0;
+
         try {
-                valor_desconto = Float.parseFloat(aux_desconto.replace(',', '.'));
-      } catch (Exception ex) {  
-              return mensagem_erro =  "Desconto informado não é valido! - Favor reinserir valor";
-    
-      }
-        
-      String aux_valorPago = valor_pagoTextField.getText();
-        if(aux_valorPago.isEmpty()) 
-            return  mensagem_erro = "Valor pago vazio";
- 
+            valor_desconto = Float.parseFloat(aux_desconto.replace(',', '.'));
+        } catch (Exception ex) {
+            return mensagem_erro = "Desconto informado não é valido! - Favor reinserir valor";
+
+        }
+
+        String aux_valorPago = valor_pagoTextField.getText();
+        if (aux_valorPago.isEmpty()) {
+            return mensagem_erro = "Valor pago vazio";
+        }
+
         try {
-                valor_pago = Float.parseFloat(aux_valorPago.replace(',', '.'));
-      } catch (Exception ex) {
-              return mensagem_erro = "O valor pago informado não é monetário";
-      }  
-    
-     Venda.PagamentoTipo pagamentotipo = null;
- 
-       if (pagamento_tipoCombobox.getSelectedIndex()>=1) {
-               pagamentotipo = Venda.PagamentoTipo.values()[pagamento_tipoCombobox.getSelectedIndex()];
-            }else{ 
-                return mensagem_erro = "Forma de Pagamento não selecionada!";
-                
-            }
-       
+            valor_pago = Float.parseFloat(aux_valorPago.replace(',', '.'));
+        } catch (Exception ex) {
+            return mensagem_erro = "O valor pago informado não é monetário";
+        }
+
+        Venda.PagamentoTipo pagamentotipo = null;
+
+        if (pagamento_tipoCombobox.getSelectedIndex() >= 1) {
+            pagamentotipo = Venda.PagamentoTipo.values()[pagamento_tipoCombobox.getSelectedIndex()];
+        } else {
+            return mensagem_erro = "Forma de Pagamento não selecionada!";
+
+        }
+
         String aux_valorFinal = valor_finalTextField.getText();
         float valor_final = Float.parseFloat(aux_valorFinal);
-       if (valor_pago < valor_final){
-           valor_pagoTextField.grabFocus();
-           return mensagem_erro = "Valor Pago menor que o da Venda - Favor inserir valor pago válido!";
-       }
-          return null;
-  }
-  private void EfetuarPagamento(java.awt.event.ActionEvent evt){
-      
-      Venda.PagamentoTipo pagamentotipo = null;
-      Venda venda = new Venda(0, "", data_venda, pagamentotipo, valor_daVenda,valor_daVenda,valor_daVenda,true);
-      String mensagem_erro = VerificarValoresPagamento();
-      int id;
-       
-      if(mensagem_erro == null){
-             
-              inserirVenda(evt);
-              
-              id = venda.RetornaUltimaVenda();
-              venda.setSequencial(id);
-              Herbicida herbicida = new Herbicida(0, "", "", "", 0, 0, Formulacao.Granulado, true);
-              for(int i =0; i < carrinho.getRowCount(); i++){
-                  int qtd_estoque, qtd_comprada, qtd_atualizada,id_herbicida;
-                  
-                  ItemVenda item = new ItemVenda();
-                    
-                  herbicida.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
-                  id_herbicida =  Integer.parseInt(carrinho.getValueAt(i, 0).toString());
-                  
-                  item.setVenda(venda);
-                  item.setHerbicida(herbicida);
-                  
-                  qtd_estoque = herbicida.RetornaEstoqueAtual(id_herbicida);
-                  
-                  System.out.println("Quantidade em Estoque igual a: " + qtd_estoque);
-                  item.setValor_unitario(Float.parseFloat(carrinho.getValueAt(i, 2).toString()));
-                  item.setQuantidade((Integer.parseInt(carrinho.getValueAt(i, 3).toString()))); 
-                
-                  qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 3).toString());
-                  System.out.println("Quantidade comprada: " + qtd_comprada);
-                  item.setSubtotal(Float.parseFloat(carrinho.getValueAt(i, 4).toString()));  
-                
-                  qtd_atualizada = qtd_estoque - qtd_comprada;
-                  System.out.println("Quantidade atualziada: " + qtd_atualizada);
-                  herbicida.baixarEstoque(id_herbicida, qtd_atualizada);
+        if (valor_pago < valor_final) {
+            valor_pagoTextField.grabFocus();
+            return mensagem_erro = "Valor Pago menor que o da Venda - Favor inserir valor pago válido!";
+        }
+        return null;
+    }
 
-                  controlador.inserirItemVenda(venda, item);
-              }
-    } else{
-               JOptionPane.showMessageDialog(this,mensagem_erro);
-    }        
-      
-  }
-     
-   private Venda obterDadosVenda() {
-     
+    private void EfetuarPagamento(java.awt.event.ActionEvent evt) {
+
+        Venda.PagamentoTipo pagamentotipo = null;
+       
+        
+        Venda venda = new Venda(0, "", data_venda, pagamentotipo, valor_daVenda, valor_daVenda, valor_daVenda, true);
+        String mensagem_erro = VerificarValoresPagamento();
+        int id;
+
+        if (mensagem_erro == null) {
+            inserirVenda(evt);
+            id = venda.RetornaUltimaVenda();
+            //Setar id da Venda
+            venda.setSequencial(id);
+            Herbicida herbicida  = new Herbicida(0, "", "", "", 0, 0, Formulacao.Granulado, true);
+           
+            for (int i = 0; i < carrinho.getRowCount(); i++) {
+                int qtd_estoque, qtd_comprada, qtd_atualizada, id_herbicida;
+
+                ItemVenda item = new ItemVenda();
+                
+                //Setar Herbbicida
+                herbicida.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+                id_herbicida = Integer.parseInt(carrinho.getValueAt(i, 0).toString());
+
+                //Seta o id da Venda e o id do herbicida.
+                item.setVenda(venda);
+                item.setHerbicida(herbicida);
+                
+                //Verifica quantidade em Estoque
+                qtd_estoque = herbicida.RetornaEstoqueAtual(id_herbicida);
+                
+                //Seta valor Unitario e Quantidade
+                item.setValor_unitario(Float.parseFloat(carrinho.getValueAt(i, 2).toString()));
+                item.setQuantidade((Integer.parseInt(carrinho.getValueAt(i, 3).toString())));
+                
+                //Atualiza e da Baixa em Estoque
+                qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 3).toString());
+                item.setSubtotal(Float.parseFloat(carrinho.getValueAt(i, 4).toString()));
+                qtd_atualizada = qtd_estoque - qtd_comprada;
+                herbicida.baixarEstoque(id_herbicida, qtd_atualizada);
+
+                item.inserirItem(item);            
+             
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, mensagem_erro);
+        }
+
+    }
+
+    private Venda obterDadosVenda() {
+
         System.out.println(cliente_id);
         String cliente = cliente_id;
         if (cliente_id == null) {
-            return null; 
+            return null;
         }
-    
-       String aux_produtos = valor_brutoTextField.getText();
+
+        String aux_produtos = valor_brutoTextField.getText();
         if (aux_produtos.isEmpty()) {
-              return null;
+            return null;
         }
 
         float valor_produtos = Float.parseFloat(aux_produtos);
 
         String aux_desconto = valor_descontoTextField.getText();
         if (aux_desconto.isEmpty()) {
-              return null;
+            return null;
         }
-       
+
         float valor_desconto = Float.parseFloat(aux_desconto);
-        
+
         String aux_total = valor_finalTextField.getText();
         if (aux_total.isEmpty()) {
-              return null;
-        }
-       
-        float valor_total = Float.parseFloat(aux_total);
-       
-        
-        Venda.PagamentoTipo pagamentotipo = null;
-           
-        if (pagamento_tipoCombobox.getSelectedIndex()>=0) 
-             pagamentotipo = Venda.PagamentoTipo.values()[pagamento_tipoCombobox.getSelectedIndex()];
-        else
             return null;
-        
-        Boolean precisa_nfe= precisa_nfeCheckBox.isSelected(); 
-  
-         
+        }
+
+        float valor_total = Float.parseFloat(aux_total);
+
+        Venda.PagamentoTipo pagamentotipo = null;
+
+        if (pagamento_tipoCombobox.getSelectedIndex() >= 0) {
+            pagamentotipo = Venda.PagamentoTipo.values()[pagamento_tipoCombobox.getSelectedIndex()];
+        } else {
+            return null;
+        }
+
+        Boolean precisa_nfe = precisa_nfeCheckBox.isSelected();
+
         Date agora = new Date();
         SimpleDateFormat dataBr = new SimpleDateFormat("yyyy-MM-dd");
         String data_atual = dataBr.format(agora);
-    
-       return new Venda(0, cliente, data_atual, pagamentotipo,  valor_produtos, valor_desconto, valor_total, precisa_nfe);
+
+        return new Venda(0, cliente, data_atual, pagamentotipo, valor_produtos, valor_desconto, valor_total, precisa_nfe);
     }
-  
-private float CalculaValorDesconto(){
-   
-    String desconto_informado = valor_descontoTextField.getText();
-    if(desconto_informado.isEmpty()) return -1;
-        float valor_desconto = 0;    
-       
+
+    private float CalculaValorDesconto() {
+
+        String desconto_informado = valor_descontoTextField.getText();
+        if (desconto_informado.isEmpty()) {
+            return -1;
+        }
+        float valor_desconto = 0;
+
         try {
-                float aux_desconto = Float.parseFloat(desconto_informado.replace(',', '.'));
-                valor_desconto = aux_desconto;
-                
-      } catch (Exception ex) {  
-              return -1;
-      }
-    return valor_desconto;
-}
+            float aux_desconto = Float.parseFloat(desconto_informado.replace(',', '.'));
+            valor_desconto = aux_desconto;
 
-public float CalculaValorTroco(){
-   
-    CalculaValorDesconto();
-    float valor_pago = 0, valor_troco = 0, valor_final = 0;
-
-    String aux_final = valor_finalTextField.getText();
-    String aux_pago = valor_pagoTextField.getText();
-
-    if(aux_pago.isEmpty()){
-        return -1;    
-       
-    }else
-    
-    {try  
-       {
-               valor_pago = Float.parseFloat(aux_pago.replace(',', '.'));
-               valor_final = Float.parseFloat(aux_final.replace(',', '.'));
-               valor_troco = (valor_pago - valor_final);
-               valor_pagoTextField.setText(String.valueOf(valor_pago));
-      } catch (Exception ex) {  
-              return -1;
-      }
-  
-   return valor_troco;
+        } catch (Exception ex) {
+            return -1;
+        }
+        return valor_desconto;
     }
- }
+
+    public float CalculaValorTroco() {
+
+        CalculaValorDesconto();
+        float valor_pago = 0, valor_troco = 0, valor_final = 0;
+
+        String aux_final = valor_finalTextField.getText();
+        String aux_pago = valor_pagoTextField.getText();
+
+        if (aux_pago.isEmpty()) {
+            return -1;
+
+        } else {
+            try {
+                valor_pago = Float.parseFloat(aux_pago.replace(',', '.'));
+                valor_final = Float.parseFloat(aux_final.replace(',', '.'));
+                valor_troco = (valor_pago - valor_final);
+                valor_pagoTextField.setText(String.valueOf(valor_pago));
+            } catch (Exception ex) {
+                return -1;
+            }
+
+            return valor_troco;
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -502,19 +506,19 @@ public float CalculaValorTroco(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void valor_pagoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valor_pagoTextFieldFocusLost
-   
-      float valor_calculado = 0;
-      DecimalFormat df = new DecimalFormat("0.00");
-      valor_calculado= CalculaValorTroco();
 
-          if(valor_calculado != -1){
-                 String valor = df.format(valor_calculado);
-                 valor_trocoTextField.setText(valor);
-          } else{
-            if(valor_calculado < 0){
+        float valor_calculado = 0;
+        DecimalFormat df = new DecimalFormat("0.00");
+        valor_calculado = CalculaValorTroco();
+
+        if (valor_calculado != -1) {
+            String valor = df.format(valor_calculado);
+            valor_trocoTextField.setText(valor);
+        } else {
+            if (valor_calculado < 0) {
                 JOptionPane.showMessageDialog(this, "Erro - Valor Pago não pode ser menor que o valor Final");
-           }
-      }  
+            }
+        }
 
     }//GEN-LAST:event_valor_pagoTextFieldFocusLost
 
@@ -523,21 +527,21 @@ public float CalculaValorTroco(){
 
         valor_bruto = valor_daVenda;
         valor_brutoTextField.setText(String.valueOf(valor_bruto));
-        
+
         DecimalFormat df = new DecimalFormat("0.00");
-        
-         float desconto = CalculaValorDesconto();
-         
-         if(desconto != -1){
-              valor_final = valor_bruto - desconto;
-              valor_descontoTextField.setText(String.valueOf(desconto));
-              valor_finalTextField.setText(String.valueOf(valor_final));
+
+        float desconto = CalculaValorDesconto();
+
+        if (desconto != -1) {
+            valor_final = valor_bruto - desconto;
+            valor_descontoTextField.setText(String.valueOf(desconto));
+            valor_finalTextField.setText(String.valueOf(valor_final));
             //  valor_daVenda = valor_final;
-      }else{
-             JOptionPane.showMessageDialog(this, "Erro: Este valor não pode ser convertido");
-             valor_descontoTextField.setText("0");
-         }
- 
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro: Este valor não pode ser convertido");
+            valor_descontoTextField.setText("0");
+        }
+
     }//GEN-LAST:event_valor_descontoTextFieldFocusLost
 
     private void valor_descontoTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valor_descontoTextFieldKeyReleased
@@ -553,7 +557,7 @@ public float CalculaValorTroco(){
     }//GEN-LAST:event_valor_trocoTextFieldActionPerformed
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
-           EfetuarPagamento(evt);
+        EfetuarPagamento(evt);
     }//GEN-LAST:event_salvarButtonActionPerformed
 
     private void salvarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButton1ActionPerformed
@@ -561,8 +565,8 @@ public float CalculaValorTroco(){
     }//GEN-LAST:event_salvarButton1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-      valor_brutoTextField.setText(String.valueOf(valor_daVenda));
-      valor_finalTextField.setText(String.valueOf(valor_daVenda));
+        valor_brutoTextField.setText(String.valueOf(valor_daVenda));
+        valor_finalTextField.setText(String.valueOf(valor_daVenda));
     }//GEN-LAST:event_formWindowActivated
 
     private void valor_pagoTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valor_pagoTextFieldFocusGained

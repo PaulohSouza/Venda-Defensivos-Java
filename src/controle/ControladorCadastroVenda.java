@@ -22,11 +22,14 @@ public class ControladorCadastroVenda {
      
    }
    
-public String inserirItemVenda(Venda venda, ItemVenda itemvenda) {
-        Venda venda1 = Venda.buscarVenda(venda.getSequencial());
+public String inserirItemVenda(Venda venda,ItemVenda itemvenda) {
+     System.out.println("Tentaou buscar uma venda");  
+     Venda venda1 = Venda.buscarVenda(venda.getSequencial());
         ItemVenda item1 = null;
         if (venda1 == null) {
+            System.out.println("Recebeu venda");
             return item1.inserirItem(itemvenda);
+
         } else {
             return "Erro Repetição de venda";
         }

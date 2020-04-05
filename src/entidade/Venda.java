@@ -135,17 +135,29 @@ public int ultima_venda;
     
     */
     public static Vector<Visão<Integer>> getVisões() {
-        String sql = "SELECT Sequencial, Nome_cliente FROM Venda";
+        String sql = "SELECT id_venda, cliente_id, data_venda, forma_pagamento, valor_produtos, valor_desconto, valor_total, precisa_nfe FROM tab_vendas ";
 
         Vector<Visão<Integer>> visões = new Vector<Visão<Integer>>();
         ResultSet lista_resultados = null;
         int sequencial;
+        String precisa_nfe1 = null;
         try {
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             lista_resultados = comando.executeQuery();
             while (lista_resultados.next()) {
-                visões.addElement(new Visão<Integer>(lista_resultados.getInt("Sequencial"), "Sequencial"
-                        + lista_resultados.getString("Sequencial") + " ---" + lista_resultados.getString("Nome_Cliente")
+                if(lista_resultados.getBoolean("precisa_nfe") == true){
+                    precisa_nfe1= "Impresso nota Fiscal";
+                }else{
+                    precisa_nfe1= "Sem Nota Fiscal";
+                } 
+                visões.addElement(new Visão<Integer>(
+                        lista_resultados.getInt("id_venda"), 
+                        lista_resultados.getInt("id_venda")
+                        + " :        Cliente:  " + lista_resultados.getString("cliente_id") 
+                        + "             Data:  " + lista_resultados.getDate("data_venda")
+                        + "            Desconto:  " + lista_resultados.getFloat("valor_desconto")
+                        + "            Valor_total:  " + lista_resultados.getFloat("valor_total")
+                        + "              Precisa Nfe:  " + precisa_nfe1
                 ));
             }
             lista_resultados.close();

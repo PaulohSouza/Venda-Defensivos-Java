@@ -7,14 +7,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Data implements Serializable {
-
-    public static Data toData(String data_string) {
-        if (!data_string.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            System.out.println("Erro na conversão para data do string: " + data_string);
-            return null;
-       }
-        return null; 
+    
+public static Data toData(String data_string) {
+    if (!data_string.matches("\\d{4}-\\d{2}-\\d{2}")) {
+        System.out.println("Erro na conversão para data do string: " + data_string);
+        return null;
     }
+String[] partesString = data_string.split("-");
+return new Data(Integer.parseInt (partesString[2]), Integer.parseInt (partesString[1]), Integer.parseInt (partesString[0]));
+}
+    
     private int dia, mês, ano;
 
     public Data(int dia, int mês, int ano) {
