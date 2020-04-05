@@ -183,6 +183,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             mensagem_erro = "Nenhum herbicida selecionado";
         }
         if (mensagem_erro == null) {
+            idTextField.setText(herbicida.getId() + " ");
             nome_produtoTextField.setText(herbicida.getNome());
             codigo_barrasTextField.setText(herbicida.getCodig_barras());
             empresaTextField.setText(herbicida.getEmpresa());   
@@ -192,7 +193,6 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             precisa_ieCheckBox.setSelected(herbicida.getPrecisa_registro());
             ultimas_consultasTextArea.append(herbicida.getVisão().toString()+"\n");
             id_formulacao = formulacaoComboBox.getSelectedIndex();
-            idTextField.setText(herbicida.getId() + " ");
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -258,6 +258,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
         quantidade_estoqueTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         precisa_ieCheckBox = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
         consulta_produtoPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         herbicidas_cadastradosTable = new javax.swing.JTable();
@@ -489,6 +490,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("(Valor por Litro ou kg)");
+
         javax.swing.GroupLayout dados_produtosPanelLayout = new javax.swing.GroupLayout(dados_produtosPanel);
         dados_produtosPanel.setLayout(dados_produtosPanelLayout);
         dados_produtosPanelLayout.setHorizontalGroup(
@@ -539,7 +542,10 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)))
                         .addGroup(dados_produtosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigo_barrasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valor_unitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dados_produtosPanelLayout.createSequentialGroup()
+                                .addComponent(valor_unitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
                             .addComponent(formulacaoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(dados_produtosPanelLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -565,7 +571,8 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
                     .addComponent(empresaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cargolabel)
                     .addComponent(senhaLabel)
-                    .addComponent(valor_unitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valor_unitarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dados_produtosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nivelLabel)
@@ -816,6 +823,7 @@ public class JanelaCadastroHerbicida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

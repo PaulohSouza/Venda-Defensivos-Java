@@ -93,7 +93,6 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         cadastrar_FuncionariosMenuItem = new javax.swing.JMenuItem();
         consultasMenu = new javax.swing.JMenu();
         filtro_vendasMenuItem = new javax.swing.JMenuItem();
-        RelatoriosMenu = new javax.swing.JMenu();
         gerenciamentoMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         designMenu = new javax.swing.JMenu();
@@ -234,8 +233,8 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(usuario_logadoLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usuario_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cargo_logadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(data_horaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -339,11 +338,6 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
         consultasMenu.add(filtro_vendasMenuItem);
 
         BarraMenuBar.add(consultasMenu);
-
-        RelatoriosMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/map.png"))); // NOI18N
-        RelatoriosMenu.setText("Relatórios");
-        RelatoriosMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        BarraMenuBar.add(RelatoriosMenu);
 
         gerenciamentoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_relatoriosPNG.png"))); // NOI18N
         gerenciamentoMenu.setText("Área Gerencial");
@@ -543,7 +537,14 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new ControladorCadastroVenda();
+        String senha = "admin";
+        senha =  JOptionPane.showInputDialog("Informe a senha de acesso a gerencia: ");
+        if(senha.equals("admin")){
+            new ControladorGerenciamentoVenda();
+        }else{  
+            String mensagem_erro = "Senha não informada ou inválida - Você não tem acesso a esta tela";
+            JOptionPane.showMessageDialog(null, mensagem_erro, "Login Invalido!", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -560,7 +561,6 @@ public class JanelaVendaDefensivos extends javax.swing.JFrame {
     private javax.swing.JMenu AjudaMenu;
     private javax.swing.JMenuBar BarraMenuBar;
     javax.swing.JMenuItem CadastrarEntregaMenuItem;
-    private javax.swing.JMenu RelatoriosMenu;
     private javax.swing.JMenuItem cadastrar_FuncionariosMenuItem;
     private javax.swing.JMenuItem cadastrar_defensivoMenuItem;
     private javax.swing.JMenu cadastrosMenu;

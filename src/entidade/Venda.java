@@ -117,7 +117,6 @@ public int ultima_venda;
         }
         return venda;
     }
-
  
     public static String alterarVenda(Venda venda) {
         String sql = "UPDATE tab_vendas SET Cliente_id = ?, valor_desconto = ?, precisa_nfe = ? ";
@@ -127,7 +126,6 @@ public int ultima_venda;
             comando.setString(1, venda.getCpf_cliente());
             comando.setFloat(2, venda.getValor_desconto());
             comando.setBoolean(3, venda.getPrecisa_nfe());
-
             comando.executeUpdate();
             comando.close();
             return null;

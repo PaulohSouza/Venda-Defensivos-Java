@@ -94,6 +94,11 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         }
 
     }
+    
+      private void informaServiçoIndisponível() {
+        JOptionPane.showMessageDialog(this, "Serviço Indisponível",
+                "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -114,7 +119,6 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         valor_finalTextField = new JFormattedTextField(NumberFormat.getNumberInstance());
         sequencialTextField = new JFormattedTextField(NumberFormat.getNumberInstance());
         jLabel9 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         dados_vendasPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         vendas_cadastradasList = new javax.swing.JList();
@@ -127,9 +131,9 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         dados_clientePanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         carrinho_comprasTable = new javax.swing.JTable();
-        alterarButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -148,6 +152,7 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
             }
         });
 
+        data_vendaFormattedTextField.setBackground(new java.awt.Color(255, 204, 153));
         data_vendaFormattedTextField.setText("  /  /");
         data_vendaFormattedTextField.setEnabled(false);
 
@@ -187,12 +192,9 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         valor_finalTextField.setEnabled(false);
 
         sequencialTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        sequencialTextField.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Codigo:");
-
-        jLabel4.setText("* Atenção Usuário: Campos de Alteração: Cliente, data, valor desconto, Precisa Nfe..");
 
         javax.swing.GroupLayout dados_clientePanelLayout = new javax.swing.GroupLayout(dados_clientePanel);
         dados_clientePanel.setLayout(dados_clientePanelLayout);
@@ -235,9 +237,6 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(valor_finalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dados_clientePanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4))
         );
         dados_clientePanelLayout.setVerticalGroup(
             dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,24 +256,19 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
                     .addComponent(descontoLabel)
                     .addComponent(descontoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(precisa_nfeCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(forma_pagamentoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dados_clientePanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pagamento_tipoCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(forma_pagamentoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(valor_produtosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valor_produtosLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(dados_clientePanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(valor_finalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valorfinalLabel))
-                        .addGap(41, 41, 41)))
-                .addComponent(jLabel4))
+                    .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(valor_produtosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(valor_produtosLabel))
+                    .addGroup(dados_clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(valorfinalLabel)
+                        .addComponent(valor_finalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         dados_clientePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clientes_cadastradosComboBox, data_vendaFormattedTextField, descontoTextField, valor_produtosTextField});
@@ -416,36 +410,27 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
                 .addGap(0, 36, Short.MAX_VALUE))
         );
 
-        alterarButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        alterarButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/package_go.png"))); // NOI18N
-        alterarButton1.setText("Salvar Alteração de Venda");
-        alterarButton1.setToolTipText("");
-        alterarButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarButton1alterarClienteButtonActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Dados da Venda");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Produtos Adquiridos");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/3_removerCarrinho.png"))); // NOI18N
+        jButton1.setText("Estornar Venda");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(140, 140, 140))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(alterarButton1))
-                    .addComponent(dados_clientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dados_clientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(dados_clientePanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -459,6 +444,14 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(284, 284, 284))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,9 +467,9 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dados_clientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dados_clientePanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(alterarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -499,12 +492,11 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         if (vendas_cadastradasList.getSelectedValue() != null) {
             visão = (Visão<Integer>) vendas_cadastradasList.getSelectedValue();
             venda = Venda.buscarVenda(visão.getChave());
-         
             if (venda == null) {
-                mensagem_erro = "Estoque não encontrado no banco de dados";
+                mensagem_erro = "Venda não encontrada no banco de dados";
             }
         } else {
-            mensagem_erro = "Nenhum Estoque selecionado";
+            mensagem_erro = "Nenhuma venda selecionada";
         }
         if (mensagem_erro == null) {
             String aux_data = String.valueOf(venda.getData_venda());
@@ -525,11 +517,6 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_consultarButtonconsultarClienteButtonActionPerformed
-
-    private void alterarButton1alterarClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarButton1alterarClienteButtonActionPerformed
-   
-        
-    }//GEN-LAST:event_alterarButton1alterarClienteButtonActionPerformed
 
     private void removerButtonremoverClienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonremoverClienteButtonActionPerformed
     String menssagem_erro = null;
@@ -595,8 +582,11 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
 
     }//GEN-LAST:event_vendas_cadastradasListMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         informaServiçoIndisponível();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alterarButton1;
     private javax.swing.JTable carrinho_comprasTable;
     private javax.swing.JComboBox clientes_cadastradosComboBox;
     private javax.swing.JButton consultarButton;
@@ -608,10 +598,10 @@ public class JanelaGerenciamentoVenda extends javax.swing.JDialog {
     private javax.swing.JLabel descontoLabel;
     private javax.swing.JFormattedTextField descontoTextField;
     private javax.swing.JLabel forma_pagamentoLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;

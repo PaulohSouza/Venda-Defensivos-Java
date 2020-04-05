@@ -200,7 +200,11 @@
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="codigo_barrasTextField" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
-                                  <Component id="valor_unitarioTextField" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="valor_unitarioTextField" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="formulacaoComboBox" min="-2" pref="186" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -235,6 +239,7 @@
                           <Component id="cargolabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="senhaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="valor_unitarioTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -610,6 +615,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precisa_ieCheckBoxActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="(Valor por Litro ou kg)"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

@@ -95,6 +95,7 @@ public class JanelaCadastroCliente extends javax.swing.JFrame {
                 visão.setInfo(cliente.getVisão().getInfo());
                 clientes_cadastradosComboBox.updateUI();
                 clientes_cadastradosComboBox.setSelectedItem(visão);
+
             }
         } else {
             JOptionPane.showMessageDialog(this, mensagem_erro, "ERRO", JOptionPane.ERROR_MESSAGE);
